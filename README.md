@@ -1,14 +1,13 @@
-"# zhuoyue" 
 ## 代码目录及介绍
 文件 | 注释
 ---|---
 test_group_buy_event.py | 营销中台拼课团的增删改查代码
 test_event.py | 营销中台活动的增删改查代码
-test_pkt.py
+test_pkt.py | 初始拼课团代码
 
 
 ## 数据库表介绍
-### article 物品，条款
+### article 物品，条款表
 
 字段名 |类型 | 注释
 :--- | :---| :---
@@ -98,7 +97,7 @@ updated_time | datetime |更新时间
 tenant_id |bigint | 租户id
 role_id |  bigint|角色id
 
-### dab_tenant_upmember_record 更新成员记录
+### dab_tenant_upmember_record 更新成员记录表
 字段名 |类型 | 注释
 :--- | :---| :---
 id |bigint |
@@ -131,7 +130,7 @@ deleted |tinyint| 删除标记
 created_time | datetime |创建时间
 updated_time | datetime |更新时间
 
-### discount_coupon_code 优惠券发送规则
+### discount_coupon_code 优惠券发送规则表
 字段名 |类型 | 注释
 :--- | :---| :---
 id |bigint |
@@ -145,7 +144,7 @@ deleted |tinyint| 删除标记
 created_time | datetime |创建时间
 updated_time | datetime |更新时间
 
-### event 活动
+### event 活动表
 字段名 |类型 | 注释
 :--- | :---| :---
 id |bigint |
@@ -176,7 +175,7 @@ created_time | datetime |创建时间
 updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
-### event_category 活动
+### event_category 活动描述表
 字段名 |类型 | 注释
 :--- | :---| :---
 id |bigint |
@@ -198,7 +197,7 @@ qrcode_url|varchar|
 deleted |tinyint| 删除标记
 
 
-### event_order 活动排名
+### event_order 活动排名表
 字段名 |类型 | 注释
 :--- | :---| :---
 id |bigint |
@@ -227,7 +226,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 
-### event_session 活动场次
+### event_session 活动场次表
 字段名 |类型 | 注释
 :--- | :---| :---
 id |bigint |
@@ -280,8 +279,35 @@ created_time | datetime |创建时间
 updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
+### fission_poster 裂变海报表
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |
+title |varchar|标题
+type |varchar|类型
+organization_id |bigint |组织id
+resource_id |varchar |资源id
+background_url|varchar|背景图片
+enabled|tinyint|是否开启
+created_time | datetime |创建时间
+updated_time | datetime |更新时间
+deleted |tinyint| 删除标记
+
+### flyway_schema_history 裂变海报表
+字段名 |类型 | 注释
+:--- | :---| :---
+installed_rank |bigint |
+version |varchar|
+description|varchar|描述
+type |varchar|类型
+script|varchar|
+checksum|int|
+installed_by|varchar |
+installed_on|timestamp|
+execution_time|int|
+success|tinyint|
+
+
 
 test_group_buy_event.py | 营销中台拼课团的增删改查代码|
-
-
 wx_pay_config
