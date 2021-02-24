@@ -293,7 +293,7 @@ created_time | datetime |创建时间
 updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
-### flyway_schema_history 裂变海报表
+### flyway_schema_history 表
 字段名 |类型 | 注释
 :--- | :---| :---
 installed_rank |bigint |
@@ -307,6 +307,167 @@ installed_on|timestamp|
 execution_time|int|
 success|tinyint|
 
+
+### form 表
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |主键
+fields |varchar|字段
+created_time | datetime |创建时间
+updated_time | datetime |更新时间
+deleted |tinyint| 删除标记
+
+### form_data 表单数据
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |主键
+type|varchar|字段类型，文本：text、单选：radio、图片：image
+event_order_id|bigint|
+key|varchar|字段名称
+value|varchar|字段内容
+created_time | datetime |创建时间
+updated_time | datetime |更新时间
+deleted |tinyint| 删除标记
+
+### form_data 表单数据
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |主键
+type|varchar|字段类型，文本：text、单选：radio、图片：image
+event_order_id|bigint|
+key|varchar|字段名称
+value|varchar|字段内容
+created_time | datetime |创建时间
+updated_time | datetime |更新时间
+deleted |tinyint| 删除标记
+
+### goods 商品表
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |主键
+name|varchar|名称
+price|int|价格
+effective_type|varchar|有效期类型
+type|varchar|字段类型，文本：text、单选：radio、图片：image
+effective_day|int|有效天数
+organization_id|bigint |
+source_type|varchar|来源
+use_type|varchar|核销状态
+resource_id|varchar|资源id
+enable|tinyint|是否开启
+order_no|int|序列化
+begin_time|datetime|开始时间
+end_time|datetime|结束时间
+banner||varchar|头图
+cover_image|varchar|封面图
+point|int|积分
+descr|text|描述
+organization_id|bigint|归属组织
+created_time | datetime |创建时间
+updated_time | datetime |更新时间
+deleted |tinyint| 删除标记
+
+
+### goods_code 商品状态码表
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |主键
+goods_ids|bigint|
+selled|tinyint|是否已经被兑换
+code|varchar|
+created_time | datetime |创建时间
+deleted |tinyint| 删除标记
+
+
+### goods_order 商品序列表
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |主键
+member_name|varchar|成员名称
+goods_name|varchar|商品名称
+goods_ids|varchar|商品id
+use_type|varchar|核销状态
+price|int|价格
+goods_type|varchar|
+count|int|
+last_time|datetime|
+mobile|varchar|手机
+goods_code|varchar|
+point|int|积分
+status|varchar|
+organization_id|bigint |
+member_id|bigint |成员id
+created_time | datetime |创建时间
+updated_time | datetime |更新时间
+deleted |tinyint| 删除标记
+
+### group_buy_event 拼课团表
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |主键
+event_category_second_id|varchar|名称
+event_category_first_id|int|价格
+resource_id|varchar|资源id
+descr|varchar|简介
+titile|varchar|
+organization_id|bigint |
+begin_time|datetime|开始时间
+team_last_time_hours|int|拼团最长小时数 LIMITED 时有效
+remind_hours|int|提醒的小时数 开始后多少小时 或者结束前多少小时
+remind_time_type|varchar|提醒时间的类型 BEGIN 开始 END 结束
+team_last_time_type|varchar|团队拼团时长 LIMITLESS 一直 LIMITED 有限的
+form_id|bigint|表单模板id
+end_time|datetime|结束时间
+repeat_join|tinyint|
+effective_type|varchar|优惠券有效期类型
+effective_end_time|datetime|结束时间
+status|varchar|
+effective_begin_time|datetime|开始时间
+student_can_join|tinyint|在读学生 是否可以参加
+effective_hours|int|有效期天数
+banner||varchar|头图
+cover_image|varchar|封面图
+cancel_review_toggle|tinyint|取消审核开关
+detail|varchar|详情
+enable|tinyint|是否开启
+guide_image | bigint|引导图片
+order_no|int|序列化
+recommend |tinyint| 置顶
+price|int|价格
+checkin_qrcode_toggle|tinyint|核销码开关
+created_time | datetime |创建时间
+updated_time | datetime |更新时间
+deleted |tinyint| 删除标记
+
+### group_buy_event_order 拼课团表
+字段名 |类型 | 注释
+:--- | :---| :---
+id |bigint |主键
+group_buy_event_id|bigint|团购活动id
+group_buy_event_name|varchar|拼客团名称
+group_buy_event_team_id|bigint|团id
+member_id|bigint|会员id
+size|int|
+member_head_url|varchar|
+time_expire|datetime|
+member_name|varchar|
+channel|varchar|
+form_data_ids
+checkin_store_org_id
+charge_toggle|tinyint|收费开关
+
+type|varchar|字段类型，文本：text、单选：radio、图片：image
+effective_day|int|有效天数
+
+source_type|varchar|来源
+use_type|varchar|核销状态
+
+
+
+
+point|int|积分
+
+organization_id|bigint|归属组织
 
 
 test_group_buy_event.py | 营销中台拼课团的增删改查代码|
