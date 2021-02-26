@@ -3,33 +3,23 @@ import random
 import re
 import requests
 
+from base_api import BaseApi
 
-class Pingketuan():
+
+class Pingketuan(BaseApi):
     # 方式一放到类里：token= None
     # 先获取token
     def __init__(self):
-        # self.token=None
-        self.token = self.get_token()
-
-    def get_token(self):
-        url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/tenants/login"
-        payload = "{\"username\":\"zhuoyue\",\"password\":\"123456\"}"
-        headers = {
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
-        r = requests.post(url, headers=headers, data=payload, verify=False)
-        token = r.json()['data']['token']
-        return token
+        super().__init__()
 
     def add(self, type):
-        url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/common/get_new_resource_id"
-        payload = {"type": type}
-        headers = {
-            'X-Token': self.token
-
+        data = {
+            "method": "get",
+            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/common/get_new_resource_id",
+            "params": {"type": type},
+            "headers": {'X-Token': self.token}
         }
-        r = requests.get(url, headers=headers, params=payload)
-        return r
+        return self.send(data)
         # resource_id = r.json()['data']
         # return resource_id
 
@@ -123,30 +113,30 @@ class Pingketuan():
         r = requests.request("PUT", url, headers=headers, data=json.dumps(payload))
         return r
 
-    def list_group_buy_event(self,titile):
-        url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/list"
-        payload = {
-            "page": 1,
-            "limit": 20,
-            "size": 10,
-            "searchWord": titile,
-            "eventSearchVO": "%7B%7D"
+    def list_group_buy_event(self, titile):
+        data = {
+            "method": "get",
+            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/list",
+            "headers": {'X-Token': self.token},
+            "params": {
+                "page": 1,
+                "limit": 20,
+                "size": 10,
+                "searchWord": titile,
+                "eventSearchVO": "%7B%7D"
+            }
+
         }
-        headers = {
-            'X-Token': self.token
-        }
-        r = requests.get(url, headers=headers, params=payload, verify=False)
-        return r
+        return self.send(data)
 
     def delete_update_group_buy_event(self, group_buy_event_id):
-        url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id
-        # event_id = 808034405862137856
-        payload = {}
-        headers = {
-            'X-Token': self.token
+        data = {
+            "method": "DELETE",
+            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id,
+            "headers": {'X-Token': self.token},
+            "data": {}
         }
-
-        return requests.request("DELETE", url, headers=headers, data=payload)
+        return self.send(data)
 
     # def __init__(self):
     #     super().__init__()
