@@ -34,7 +34,6 @@ def test_login():
     token = r.json()['data']['token']
     return token
 
-
 def test_find_group_buy_event():
     # 搜索框按钮，搜索显示拼课团列表
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/list"
@@ -64,7 +63,6 @@ def test_searchWord_find_group_buy_event():
         "size": 10,
         "searchWord": "取消订单测试",
         "eventSearchVO": "%7B%7D"
-
     }
     headers = {
         'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
@@ -345,6 +343,7 @@ def test_excel_teamnumber_group_buy_event(status):
     print(r.text)
     assert r.status_code == 200
 
+
 def test_launch_list_group_buy_event():
     # 查看单个拼课团的分发管理渠道
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/launch_list?page=1&size=10"
@@ -363,6 +362,7 @@ def test_launch_list_group_buy_event():
     print(r.text)
     print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
     assert r.status_code == 200
+
 
 def test_channel_list_group_buy_event():
     # 查看所有渠道
@@ -400,6 +400,7 @@ def test_store_list_group_buy_event():
     print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
     assert r.status_code == 200
 
+
 def test_url_list_excel_group_buy_event():
     # 下载全部二维码，渠道二维码
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/url_list_excel"
@@ -415,9 +416,10 @@ def test_url_list_excel_group_buy_event():
         'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
     }
     r = requests.request("POST", url, headers=headers, data=json.dumps(payload))
-    #print(r.text)
-    #print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
+    # print(r.text)
+    # print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
     assert r.status_code == 200
+
 
 def test_add_launch_group_buy_event():
     # 为单个拼课团添加门店及渠道，生成渠道二维码 下载单个二维码不会触发
@@ -443,6 +445,7 @@ def test_add_launch_group_buy_event():
     print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
     assert r.status_code == 200
 
+
 def test_upload_qrcode_group_buy_event():
     # 下载单个二维码
     url = "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/mocha_qrcode_4389708749976803471.png"
@@ -454,8 +457,9 @@ def test_upload_qrcode_group_buy_event():
     r = requests.request("GET", url, headers=headers, params=payload)
     assert r.status_code == 200
 
+
 def test_upload_qrcode_group_buy_event():
-    #订单号详情
+    # 订单号详情
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/orders"
 
     payload = {
@@ -463,10 +467,10 @@ def test_upload_qrcode_group_buy_event():
         "limit": 20,
         "size": 10,
         "groupBuyEventId": "813791300195639296",
-        "keyWord":"",
-        "status":"",
-        "orderStatus":"",
-        "pamentStatus":""
+        "keyWord": "",
+        "status": "",
+        "orderStatus": "",
+        "pamentStatus": ""
     }
     headers = {
         'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
@@ -502,8 +506,5 @@ def test_search_group_buy_event(status):
     print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
     assert r.status_code == 200
 
-
-
 # def teardown():
 #    pass
-

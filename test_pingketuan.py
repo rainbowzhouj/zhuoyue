@@ -11,29 +11,53 @@ from pingketuan import Pingketuan
 class TestPingketuan:
     def setup_class(self):
         self.pkt = Pingketuan()
-    def test_add_pkt(self):
-        pass
+
+    @pytest.mark.parametrize("type", [['pt'], ['test']])
+    def test_add_pkt(self,type):
+        r = self.pkt.add(type=type)
+        print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
+        assert r.status_code == 200
+        assert r.json()["code"] == "0"
+
+
     @pytest.mark.parametrize("group_buy_event_id,resourceId,titile",[
         ['813830799369887744','pt_813830799357304832', 'zhouj1'],
         ['813830799369887744','pt_813830799357304832', 'zhouj2'],
     ])
-    def test_list_pkt(self,group_buy_event_id,resourceId,titile):
+    def test_update_pkt(self,group_buy_event_id,resourceId,titile):
         titile = titile+ str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
-        r = self.pkt.list()
         r=self.pkt.update_group_buy_event(group_buy_event_id=group_buy_event_id,resourceId=resourceId, titile=titile)
-        r=self.pkt.list()
+        r=self.pkt.list_group_buy_event(titile)
         print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
         assert r.json()['code'] == '0'
         assert r.status_code == 200
         assert r.json()['data'] != []
-        assert jsonpath(r.json(), f"$.data[1].titile") == [titile]
+        """
+        此处因断言类型不一致，会导致报错，解决方式有两种:
+        1.将左右两边的类型都改为dict，[]
+        2.将左右两边的类型都改为string
+        """
+        #方式1
+        #assert jsonpath(r.json(), f"$.data[1].titile") == [titile]
+        #方式2
+        a=jsonpath(r.json(), f"$.data[0].titile")
+        print(a)
+        assert "".join(a) == titile
+
+    def test_list_pkt(self):
+        titile="取消订单测试_副本"
+        r = self.pkt.list_group_buy_event(titile)
+        print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
+        assert r.json()['code'] == '0'
+        assert r.status_code == 200
+        assert r.json()['data'] != []
 
 
+    def test_delete_pkt(self):
+        # group_buy_event_id="813837484247408640" 删除不存在的情况无报错
+        self.pkt.delete_update_group_buy_event("813837484247408640")
 
-    def test_update_pkt(self):
-        pass
-
-    #         ['813791300195639296','pt_813791300145307648', '取消订单测试3'],
+    # ['813791300195639296','pt_813791300145307648', '取消订单测试3'],
     #['zhouj3——中文20210226-150607'] == ['zhouj120210226-152702']
     #['zhouj3——中文20210226-150607'] == ['zhouj220210226-152703']
     # def test_add_user(self):
