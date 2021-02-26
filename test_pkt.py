@@ -25,11 +25,10 @@ def test_login():
     headers = {
         'Content-Type': 'application/json;charset=UTF-8'
     }
-
     r = requests.post(url, headers=headers, data=payload, verify=False)
     print(r.text)
     print(json.dumps(r.json(), indent=2))
-    print(r.json()['data']['token'])
+
     assert r.status_code == 200
     assert r.json()['code'] == '0'
     token = r.json()['data']['token']
@@ -41,7 +40,7 @@ def test_find_group_buy_event():
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/list"
     payload = {
         "page": 1,
-        "limit": 20,
+        "limit": 10,
         "size": 10,
         "eventSearchVO": {}
     }
@@ -51,7 +50,7 @@ def test_find_group_buy_event():
     r = requests.get(url,
                      headers=headers, params=payload, verify=False)
     print(r.text)
-    print(json.dumps(r.json(), indent=2))
+    print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
     assert r.json()['code'] == '0'
     assert r.status_code == 200
 
@@ -126,7 +125,7 @@ def test_update_group_buy_event():
                 "begintNumber": 0
             }
         ],
-        "resourceId": "pt_813346305852366848",
+        "resourceId": "pt_813830799357304832",
         "robotRules": [],
         "storeOrgIds": [
             "768419663792685056"
@@ -152,7 +151,6 @@ def test_update_group_buy_event():
     }
 
     r = requests.request("POST", url, headers=headers, data=payload)
-
     print(r.text)
     print(json.dumps(r.json(), indent=2))
     print(r.json()['data'])
