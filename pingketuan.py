@@ -24,9 +24,14 @@ class Pingketuan(BaseApi):
         # return resource_id
 
     def update_group_buy_event(self, group_buy_event_id, resourceId, titile):
-        url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id
-        # 当变量在url中时，group_buy_event_id=813830799369887744
-        payload = {
+        data={
+            "method":"put",
+            "url":"https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id,
+            "headers":{
+            'X-Token': self.token,
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+            "json":{
             "shareImageUrl": "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/7f900cf29daa4b2caf991d9ba8da5788.jpg",
             "customerServerShowVO": {
                 "title": "",
@@ -105,13 +110,96 @@ class Pingketuan(BaseApi):
             "remindHours": 1,
             "remindTimeType": "BEGIN",
             "checkinQrcodeToggle": False
+        },
         }
-        headers = {
-            'X-Token': self.token,
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
-        r = requests.request("PUT", url, headers=headers, data=json.dumps(payload))
-        return r
+        # url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id
+        # # 当变量在url中时，group_buy_event_id=813830799369887744
+        # payload = {
+        #     "shareImageUrl": "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/7f900cf29daa4b2caf991d9ba8da5788.jpg",
+        #     "customerServerShowVO": {
+        #         "title": "",
+        #         "image": "",
+        #         "iconName": "",
+        #         "status": False
+        #     },
+        #     "customerServerGuideOpened": False,
+        #     "id": "813830799369887744",
+        #     "resourceId": resourceId,
+        #     "descr": "",
+        #     "titile": titile,
+        #     "beginTime": 1611590400000,
+        #     "form": "[]",
+        #     "endTime": 1643040000000,
+        #     "effectiveType": "RELATIVE_DATE",
+        #     "effectiveHours": 3,
+        #     "banner": "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/0f554cf567564d6ba5f1f797409004f0.jpg",
+        #     "coverImage": "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/78db0280fc0a4f4fbc7fe2c49c58fa5d.jpg",
+        #     "cancelReviewToggle": False,
+        #     "detail": "",
+        #     "price": 0,
+        #     "storeOrgIds": [
+        #         "800758418357149696"
+        #     ],
+        #     "tags": [],
+        #     "robotRules": [
+        #         {
+        #             "type": "END",
+        #             "offsetTime": 600000,
+        #             "probability": 30,
+        #             "id": "813830799525076992",
+        #             "begintNumber": "null"
+        #         }
+        #     ],
+        #     "groupBuyEventTeamRules": [
+        #         {
+        #             "size": 3,
+        #             "leaderPrice": 0,
+        #             "memberPrice": 0,
+        #             "maxNumber": 22,
+        #             "canJoin": True,
+        #             "begintNumber": 0
+        #         }
+        #     ],
+        #     "stores": [
+        #
+        #         {
+        #             "name": "西城区",
+        #             "organizationId": "800758418357149696",
+        #             "longitude": "",
+        #             "latitude": "",
+        #             "address": "西城区",
+        #             "tel": "",
+        #             "length": "null"
+        #         }
+        #     ],
+        #     "createdTime": 1614073982000,
+        #     "updatedTime": 1614079695000,
+        #     "enable": True,
+        #     "teamLastTimeHours": 0,
+        #     "teamLastTimeType": "LIMITLESS",
+        #     "repeatJoin": False,
+        #     "effectiveEndTime": 1611590400000,
+        #     "effectiveBeginTime": 1611072000000,
+        #     "teamStatus": "null",
+        #     "teamLeader": "null",
+        #     "payCountdown": 0,
+        #     "studentCanJoin": True,
+        #     "trainingClassId": "null",
+        #     "eventCategorySecondId": "",
+        #     "eventCategoryFirstId": "754008091141341184",
+        #     "eventCategorySecondIdName": "",
+        #     "eventCategoryFirstIdName": "测试",
+        #     "guideImage": "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/d53890f3a2d74e38ae521dcac2d13de4.jpg",
+        #     "remindHours": 1,
+        #     "remindTimeType": "BEGIN",
+        #     "checkinQrcodeToggle": False
+        # }
+        # headers = {
+        #     'X-Token': self.token,
+        #     'Content-Type': 'application/json;charset=UTF-8'
+        # }
+        # r = requests.request("PUT", url, headers=headers, data=json.dumps(payload))
+        return self.send(data)
 
     def list_group_buy_event(self, titile):
         data = {
@@ -133,6 +221,71 @@ class Pingketuan(BaseApi):
         data = {
             "method": "DELETE",
             "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id,
+            "headers": {'X-Token': self.token},
+            "data": {}
+        }
+        return self.send(data)
+
+    def add_group_buy_event_specification_detail(self):
+        # 为某一个拼课团关联课程班级 拼课团名称：取消订单测试
+        data={
+            "method": "PUT",
+            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/813791300195639296/specification",
+            "headers": {
+            'X-Token': self.token,
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+            "json": {
+            "groupBuyEventSpecificationDetails": [
+                {
+                    "values": "语文,数学",
+                    "enabled": True,
+                    "orderNo": 0,
+                    "trainingClassId": "699287789878902784",
+                    "trainingClassName": "励暑语2"
+                },
+                {
+                    "values": "语文,英语",
+                    "enabled": False,
+                    "orderNo": 1,
+                    "trainingClassId": "",
+                    "trainingClassName": ""
+                },
+                {
+                    "values": "数学,数学",
+                    "enabled": True,
+                    "orderNo": 2,
+                    "trainingClassId": "",
+                    "trainingClassName": ""
+                },
+                {
+                    "values": "数学,英语",
+                    "enabled": True,
+                    "orderNo": 3,
+                    "trainingClassId": "",
+                    "trainingClassName": ""
+                }
+            ],
+            "specificationConfs": [
+                {
+                    "level": 1,
+                    "name": "一年级",
+                    "values": "语文,数学"
+                },
+                {
+                    "level": 2,
+                    "name": "二年级",
+                    "values": "数学,英语"
+                }
+            ]
+        }
+        }
+        return self.send(data)
+
+    def copy_group_buy_event(self,group_buy_event_id):
+        data = {
+            "method": "PUT",
+            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/"+group_buy_event_id+"/copy",
             "headers": {'X-Token': self.token},
             "data": {}
         }

@@ -3,8 +3,6 @@ import json
 import pytest
 from jsonpath import jsonpath
 
-# from address_list.tongxun import Tongxun, PhoneNOGenerator
-
 from pingketuan import Pingketuan
 
 
@@ -37,11 +35,11 @@ class TestPingketuan:
         2.将左右两边的类型都改为string
         """
         # 方式1
-        # assert jsonpath(r.json(), f"$.data[1].titile") == [titile]
-        # 方式2
-        a = jsonpath(r.json(), f"$.data[0].titile")
-        print(a)
-        assert "".join(a) == titile
+        assert jsonpath(r.json(), f"$.data[1].titile") == [titile]
+        # 方式2 assert jsonpath(r,"$..topics[?(@.user.login=='VipMagic')].node_name")[0]=='性能常识'
+        # a = jsonpath(r.json(), f"$.data[0].titile")
+        # print(a)
+        # assert "".join(a) == titile
 
     def test_list_pkt(self):
         titile = "取消订单测试_副本"
@@ -54,6 +52,34 @@ class TestPingketuan:
     def test_delete_pkt(self):
         # group_buy_event_id="813837484247408640" 删除不存在的情况无报错
         self.pkt.delete_update_group_buy_event("813837484247408640")
+
+    def test_add_group_buy_event_specification_detail(self):
+        # 为某一个拼课团关联课程班级 拼课团名称：取消订单测试,未进行参数化，需进一步封装
+        self.pkt.add_group_buy_event_specification_detail()
+
+    def test_copy_group_buy_event(self):
+        # 复制一个拼课团
+        r=self.pkt.copy_group_buy_event("813791300195639296")
+        assert r.json()['code'] == '0'
+        assert r.status_code == 200
+        new_id = r.json()['data']
+        print(new_id)
+        return new_id
+
+    @pytest.mark.parametrize("enable", [['false'], ['true']])
+    def test_enable_group_buy_event(enable):
+        # 撤销和发布一个拼课团
+        url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/813830799369887744/enable"
+        payload = {"enable": enable}
+        headers = {
+            'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
+        }
+
+        r = requests.request("PUT", url, headers=headers, data=payload)
+        print(r.text)
+        print(json.dumps(r.json(), indent=2))
+        assert r.status_code == 200
+# 为某一个拼课团关联课程班级 拼课团名称：取消订单测试
 
     # ['813791300195639296','pt_813791300145307648', '取消订单测试3'],
     # ['zhouj3——中文20210226-150607'] == ['zhouj120210226-152702']

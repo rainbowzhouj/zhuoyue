@@ -11,21 +11,15 @@ import requests
 6、断言验证 hamcrest/assert
 """
 
-# def setup():
-#     pass
-
-"""
-
-"""
-
 def test_login():
     # 登录
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/tenants/login"
-    payload = "{\"username\":\"zhuoyue\",\"password\":\"123456\"}"
+    payload = {"username": "test",
+               "password": "test"}
     headers = {
         'Content-Type': 'application/json;charset=UTF-8'
     }
-    r = requests.post(url, headers=headers, data=payload, verify=False)
+    r = requests.post(url, headers=headers, json=payload, verify=False)
     print(r.text)
     print(json.dumps(r.json(), indent=2))
 
@@ -33,6 +27,7 @@ def test_login():
     assert r.json()['code'] == '0'
     token = r.json()['data']['token']
     return token
+
 
 def test_find_group_buy_event():
     # 搜索框按钮，搜索显示拼课团列表
@@ -92,8 +87,8 @@ def test_add_group_buy_event(type):
 
 
 def test_update_group_buy_event():
+    #不清楚？？
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event"
-
     payload = {
         "checkinQrcodeToggle": False,
         "banner": "",
@@ -232,14 +227,14 @@ def test_add_group_buy_event_specification_detail():
 
 
 def test_copy_group_buy_event():
+    group_buy_event_id = "813791300195639296"
     # 复制一个拼课团
-    url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/813791300195639296/copy"
-    # 拼课团原id = 813791300195639296，返回复制后的拼课团id值，取出data字段
+    url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/"+ group_buy_event_id+'/copy'
+    # group_buy_event_id = 813791300195639296，返回复制后的拼课团id值，取出data字段
     payload = {}
     headers = {
         'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
     }
-
     r = requests.request("PUT", url, headers=headers, data=payload)
     print(r.text)
     print(json.dumps(r.json(), indent=2))
