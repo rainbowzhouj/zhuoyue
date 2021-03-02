@@ -392,7 +392,7 @@ class Pingketuan(BaseApi):
         }
         return self.send(data)
 
-    def add_launch_group_buy_event(self,channelIds,group_buy_event_id,organizationId):
+    def add_launch_group_buy_event(self, channelIds, group_buy_event_id, organizationId):
         data = {
             "method": "post",
             "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/launch",
@@ -412,7 +412,7 @@ class Pingketuan(BaseApi):
         return self.send(data)
 
     def upload_qrcode_group_buy_event(self):
-        data={
+        data = {
             "method": "GET",
             "url": "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/mocha_qrcode_4389708749976803471.png",
             "headers": {'X-Token': self.token},
@@ -420,24 +420,41 @@ class Pingketuan(BaseApi):
         }
         return self.send(data)
 
-
-    def d(self):
-        data={
+    def orders_group_buy_event(self, group_buy_event_id):
+        data = {
             "method": "GET",
             "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/orders",
             "headers": {'X-Token': self.token},
             "params": {
-            "page": 1,
-            "limit": 20,
-            "size": 10,
-            "groupBuyEventId": "813791300195639296",
-            "keyWord": "",
-            "status": "",
-            "orderStatus": "",
-            "pamentStatus": ""
-        }
+                "page": 1,
+                "limit": 20,
+                "size": 10,
+                "groupBuyEventId": group_buy_event_id,
+                "keyWord": "",
+                "status": "",
+                "orderStatus": "",
+                "pamentStatus": ""
+            }
         }
         return self.send(data)
+
+    def status_group_buy_event(self, group_buy_event_id, status):
+        data = {
+            "method": "GET",
+            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/search",
+            "headers": {'X-Token': self.token},
+            "params": {
+                "page": 1,
+                "size": 100,
+                "limit": 20,
+                "groupBuyEventId": group_buy_event_id,
+                "keyWord": "",
+                "status": status
+            }
+        }
+
+        return self.send(data)
+
     # def __init__(self):
     #     super().__init__()
     """

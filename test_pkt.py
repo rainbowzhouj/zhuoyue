@@ -452,7 +452,7 @@ def test_upload_qrcode_group_buy_event():
     assert r.status_code == 200
 
 
-def test_upload_qrcode_group_buy_event():
+def test_orders_group_buy_event():
     # 订单号详情
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/orders"
 
@@ -480,7 +480,7 @@ def test_upload_qrcode_group_buy_event():
     ["UNUSED"]])
 def test_search_group_buy_event(status):
     # 后台核销 ,status:USED 已核销 UNUSED 未核销，keyWord:兑换码，订单号，会员手机号
-    "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/search?page=1&limit=20&size=20&groupBuyEventId=800759900083118080&keyWord=&status=UNUSED"
+    #"https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/search?page=1&limit=20&size=20&groupBuyEventId=800759900083118080&keyWord=&status=UNUSED"
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/search"
 
     payload = {
