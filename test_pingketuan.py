@@ -152,24 +152,32 @@ class TestPingketuan:
         r = self.pkt.url_list_excel_group_buy_event(group_buy_event_id1)
         assert r.status_code == 200
 
-    def test_add_launch_group_buy_event(self):
+    @pytest.mark.parametrize("group_buy_event_id,organizationId,channelIds",[["813830799369887744","768419663792685056","593114936268292096"]])
+    def test_add_launch_group_buy_event(self,group_buy_event_id,organizationId,channelIds):
         # 为单个拼课团添加门店及渠道，生成渠道二维码
+        # channelIds ="593114936268292096"
+        # organizationId = "768419663792685056"
+        # group_buy_event_id = "813830799369887744"
+        r= self.pkt.add_launch_group_buy_event(channelIds,group_buy_event_id,organizationId)
+        print(r.text)
+
+        assert r.status_code == 200
+        a = jsonpath(r.json(), f"$..data[0].storeName")
+        # print(a)
+        assert "".join(a) == "虹口校区"
+
+    def test_upload_qrcode_group_buy_event(self):
+        # 下载单个二维码
+        r=self.pkt.upload_qrcode_group_buy_event()
+        assert r.status_code == 200
+        #print(r)
+
+    def test_upload_qrcode_group_buy_event():
+        # 订单号详情
 
         print(r.text)
         print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
         assert r.status_code == 200
-
-    def test_upload_qrcode_group_buy_event(self):
-        # 下载单个二维码
-        url = "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/mocha_qrcode_4389708749976803471.png"
-
-        payload = {}
-        headers = {
-            'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
-        }
-        r = requests.request("GET", url, headers=headers, params=payload)
-        assert r.status_code == 200
-
 
 # 为某一个拼课团关联课程班级 拼课团名称：取消订单测试
 

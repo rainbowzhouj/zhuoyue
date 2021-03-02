@@ -401,17 +401,43 @@ class Pingketuan(BaseApi):
                 "page": 1,
                 "size": 10,
                 "channelIds": [
-                    "593114936268292096"
+                    channelIds
                 ],
                 "groupBuyEventId": group_buy_event_id,
                 "orgIds": [
                     organizationId
-                    
                 ]
             }
         }
         return self.send(data)
 
+    def upload_qrcode_group_buy_event(self):
+        data={
+            "method": "GET",
+            "url": "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/mocha_qrcode_4389708749976803471.png",
+            "headers": {'X-Token': self.token},
+            "params": {}
+        }
+        return self.send(data)
+
+
+    def d(self):
+        data={
+            "method": "GET",
+            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/orders",
+            "headers": {'X-Token': self.token},
+            "params": {
+            "page": 1,
+            "limit": 20,
+            "size": 10,
+            "groupBuyEventId": "813791300195639296",
+            "keyWord": "",
+            "status": "",
+            "orderStatus": "",
+            "pamentStatus": ""
+        }
+        }
+        return self.send(data)
     # def __init__(self):
     #     super().__init__()
     """
