@@ -66,19 +66,111 @@ class TestPingketuan:
         print(new_id)
         return new_id
 
-    @pytest.mark.parametrize("enable", [['false'], ['true']])
-    def test_enable_group_buy_event(enable):
+    @pytest.mark.parametrize("group_buy_event_id,enable", [["815170951962877952",False], ["815170951962877952",True]])
+    def test_enable_group_buy_event(self,group_buy_event_id,enable):
         # 撤销和发布一个拼课团
-        url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/813830799369887744/enable"
-        payload = {"enable": enable}
+        r = self.pkt.enable_group_buy_event(group_buy_event_id=group_buy_event_id,enable=enable)
+        r= self.pkt.list_group_buy_event("取消订单测试")
+        assert r.json()['code'] == '0'
+        assert r.status_code == 200
+        assert jsonpath(r.json(), f"$.data[2].enable") == [enable]
+
+    @pytest.mark.parametrize("group_buy_event_id,recommend", [["815170951962877952",False], ["815170951962877952",True]])
+    def test_recommend_group_buy_event(self,group_buy_event_id,recommend):
+        # 移除和置顶一个拼课团，recommend字段控制
+        r=self.pkt.recommend_group_buy_event(group_buy_event_id=group_buy_event_id,recommend=recommend)
+        r = self.pkt.list_group_buy_event("取消订单测试")
+        assert r.json()['code'] == '0'
+        assert r.status_code == 200
+        assert jsonpath(r.json(), f"$.data[1].recommend") == [recommend]
+
+    @pytest.mark.parametrize("group_buy_event_id",
+                             [["815170951962877952"], ["813791300195639296"], ["813791300195639297"]])
+    def test_find_team_group_buy_event(self, group_buy_event_id):
+        # 测试查看单个拼课团的参团列表,前两个为存在，后一个不存在
+        r = self.pkt.find_team_group_buy_event(group_buy_event_id=group_buy_event_id)
+        print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
+        assert r.json()['code'] == '0'
+        """
+        参团列表为空,分为两种情况：
+        1.拼课团活动存在，但无人参加该拼课团；
+        2.拼课团活动不存在.
+        """
+        assert r.json()['data'] != []
+
+    @pytest.mark.parametrize("group_buy_event_id",
+                             [["815170951962877952"], ["813791300195639296"], ["813791300195639297"]])
+    def test_find_teamnumber_group_buy_event(self, group_buy_event_id):
+        # 测试查看单个拼课团的查看拼课团的参团成员,前两个为存在，后一个不存在
+        r = self.pkt.find_teamnumber_group_buy_event(group_buy_event_id=group_buy_event_id)
+
+        assert r.json()['code'] == '0'
+        """
+        参团成员为空,分为两种情况：
+        1.拼课团活动存在，但无人参加该拼课团；
+        2.拼课团活动不存在.
+        """
+        assert r.json()['data'] != []
+
+    @pytest.mark.parametrize("group_buy_event_id,status", [
+        ["813791300195639296","PENDING"],
+        ["813791300195639296","SUCCESS"],
+        ["813791300195639296","FAILED"],
+        ["813791300195639296","UNPAID"]])
+    def test_excel_teamnumber_group_buy_event(self, group_buy_event_id,status):
+        """
+        # 导出不同拼课团状态或不同团队成员人数的某一拼课团的参团成员,
+        团队大小，teamSize，拼课团团队状态，status：
+        - PENDING 拼团中
+        - SUCCESS 拼团成功
+        - FAILED  拼团失败
+        - UNPAID  未支付
+        :return:
+        """
+        r = self.pkt.excel_teamnumber_group_buy_event(group_buy_event_id=group_buy_event_id,status=status)
+        assert r.status_code == 200
+
+    def test_channel_list_group_buy_event(self):
+        # 查看所有渠道
+        r = self.pkt.channel_list_group_buy_event()
+        assert r.json()['code'] == '0'
+        a = jsonpath(r.json(), f"$..name")[0]
+        #print(a)
+        assert "".join(a) == "线上-微信"
+
+    def test_store_list_group_buy_event(self):
+        # 查看所有校区
+        r=self.pkt.store_list_group_buy_event()
+        assert r.json()['code'] == '0'
+        a = jsonpath(r.json(), f"$..data[0].name")
+        # print(a)
+        assert "".join(a) == "虹口校区"
+
+    def test_url_list_excel_group_buy_event(self):
+        group_buy_event_id1="813830799369887744"
+        # 下载全部二维码，渠道二维码
+        r = self.pkt.url_list_excel_group_buy_event(group_buy_event_id1)
+        assert r.status_code == 200
+
+    def test_add_launch_group_buy_event(self):
+        # 为单个拼课团添加门店及渠道，生成渠道二维码
+
+        print(r.text)
+        print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
+        assert r.status_code == 200
+
+    def test_upload_qrcode_group_buy_event(self):
+        # 下载单个二维码
+        url = "https://apex-mini-dev.oss-cn-shanghai.aliyuncs.com/null/mocha_qrcode_4389708749976803471.png"
+
+        payload = {}
         headers = {
             'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
         }
-
-        r = requests.request("PUT", url, headers=headers, data=payload)
-        print(r.text)
-        print(json.dumps(r.json(), indent=2))
+        r = requests.request("GET", url, headers=headers, params=payload)
         assert r.status_code == 200
+
+
 # 为某一个拼课团关联课程班级 拼课团名称：取消订单测试
 
     # ['813791300195639296','pt_813791300145307648', '取消订单测试3'],

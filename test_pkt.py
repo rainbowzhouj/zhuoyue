@@ -253,7 +253,6 @@ def test_enable_group_buy_event(enable):
     headers = {
         'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
     }
-
     r = requests.request("PUT", url, headers=headers, data=payload)
     print(r.text)
     print(json.dumps(r.json(), indent=2))
@@ -283,7 +282,7 @@ def test_find_team_group_buy_event():
         "page": 1,
         "limit": 20,
         "size": 10,
-        "groupBuyEventId": 813791300195639296
+        "groupBuyEventId": "813791300195639296"
     }
     headers = {
         'X-Token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODczNjMwOTYwMDgzMjcyMjIifQ.GHCkx19Zhcz2BKZmNJskYCiI9bJ6SnBYZqlG2WhX4Cw'
@@ -417,7 +416,7 @@ def test_url_list_excel_group_buy_event():
 
 
 def test_add_launch_group_buy_event():
-    # 为单个拼课团添加门店及渠道，生成渠道二维码 下载单个二维码不会触发
+    # 为单个拼课团添加门店及渠道，生成渠道二维码
     url = "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/launch"
 
     payload = {

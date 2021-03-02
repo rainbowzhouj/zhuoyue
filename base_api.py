@@ -21,5 +21,5 @@ class BaseApi:
 
     def send(self, kwargs):
         r = requests.request(**kwargs)
-        print(json.dumps(r.json(), indent=2))
+        print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
         return r
