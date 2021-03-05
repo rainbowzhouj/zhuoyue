@@ -111,7 +111,6 @@ class Huodongyuyue(BaseApi):
                 "searchWord": name,
                 "eventSearchVO": "%7B%7D"
             }
-
         }
         return self.send(data)
 
@@ -178,9 +177,7 @@ class Huodongyuyue(BaseApi):
                 "eventId": event_id
             },
             "json": {
-
                 "storeOrgIds": []
-
             }
 
         }
