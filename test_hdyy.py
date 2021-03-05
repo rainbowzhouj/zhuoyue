@@ -37,7 +37,6 @@ class TestHuoDongYuYue:
         assert r.status_code == 200
         assert r.json()['data'] != []
 
-
     def test_delete_hdyy(self):
         # event_id="813837484247408640" 删除不存在的情况无报错
         self.hdyy.delete_update_event("817401071256788992")
