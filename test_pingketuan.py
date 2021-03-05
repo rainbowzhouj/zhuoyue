@@ -17,6 +17,8 @@ class TestPingketuan:
         assert r.status_code == 200
         assert r.json()["code"] == "0"
 
+
+    # todo：测试数据放到数据文件中
     @pytest.mark.parametrize("group_buy_event_id,resourceId,titile", [
         ['813830799369887744', 'pt_813830799357304832', 'zhouj1'],
         ['813830799369887744', 'pt_813830799357304832', 'zhouj2'],
@@ -113,11 +115,12 @@ class TestPingketuan:
         """
         assert r.json()['data'] != []
 
-    @pytest.mark.parametrize("group_buy_event_id,status", [
-        ["813791300195639296", "PENDING"],
-        ["813791300195639296", "SUCCESS"],
-        ["813791300195639296", "FAILED"],
-        ["813791300195639296", "UNPAID"]])
+    @pytest.mark.skip
+    # @pytest.mark.parametrize("group_buy_event_id,status", [
+    #     ["813791300195639296", "PENDING"],
+    #     ["813791300195639296", "SUCCESS"],
+    #     ["813791300195639296", "FAILED"],
+    #     ["813791300195639296", "UNPAID"]])
     def test_excel_teamnumber_group_buy_event(self, group_buy_event_id, status):
         """
         # 导出不同拼课团状态或不同团队成员人数的某一拼课团的参团成员,
@@ -147,7 +150,7 @@ class TestPingketuan:
         # print(a)
         assert "".join(a) == "虹口校区"
 
-    @pytest.skip
+    @pytest.mark.skip
     def test_url_list_excel_group_buy_event(self):
         group_buy_event_id1 = "813830799369887744"
         # 下载全部二维码，渠道二维码
@@ -169,7 +172,7 @@ class TestPingketuan:
         # print(a)
         assert "".join(a) == "虹口校区"
 
-    @pytest.skip
+    @pytest.mark.skip
     def test_upload_qrcode_group_buy_event(self):
         # 下载单个二维码
         r = self.pkt.upload_qrcode_group_buy_event()

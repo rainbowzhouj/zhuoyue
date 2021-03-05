@@ -1,0 +1,7 @@
+add:
+  "method": "get",
+  "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/common/get_new_resource_id",
+  "params":
+    "type": ${type}
+  "headers":
+    'X-Token': ${token}

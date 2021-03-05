@@ -1,5 +1,5 @@
 ## 代码目录及介绍
-文件 | 注释
+文件 | 备注
 ---|---
 test_group_buy_event.py | 营销中台拼课团的增删改查代码
 test_event.py | 营销中台活动的增删改查代码
@@ -9,7 +9,7 @@ test_pkt.py | 初始拼课团代码
 ## 数据库表介绍
 ### article 物品，条款表
 
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 organization_id | bigint|
@@ -29,7 +29,7 @@ updated_time | datetime |更新时间
 
 ### category_resource 商品分类表
 
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 category_id | bigint|商品id
@@ -38,7 +38,7 @@ updated_time | datetime |更新时间
 
 ### channel 渠道表
 
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 name | varchar|名称
@@ -51,7 +51,7 @@ deleted |tinyint| 删除标记
 
 ### coupons_record 优惠券记录表
 
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |int |
 coupons_code|varchar|优惠券code
@@ -61,7 +61,7 @@ updated_time | datetime |更新时间
 
 ### dab_privilege 权限表
 
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 name | varchar|权限名称
@@ -74,14 +74,14 @@ updated_time | datetime |更新时间
 
 ### dab_privilege_role_map 权限规则表
 
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 role_id |bigint |
 privilege_int| bigint|
 
 
 ### dab_role 规则表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 name | varchar|角色名称
@@ -92,13 +92,13 @@ created_time | datetime |创建时间
 updated_time | datetime |更新时间
 
 ### dab_tenant_role_map 租户规则表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 tenant_id |bigint | 租户id
 role_id |  bigint|角色id
 
 ### dab_tenant_upmember_record 更新成员记录表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 tenant_id |bigint | 租户id
@@ -110,7 +110,7 @@ to_growth|int|
 created_time|datetime|
 
 ### discount_coupon_code 优惠券码表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 code | varchar|优惠券码
@@ -131,7 +131,7 @@ created_time | datetime |创建时间
 updated_time | datetime |更新时间
 
 ### discount_coupon_code 优惠券发送规则表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 discount_coupon_id | bigint|优惠券id
@@ -145,7 +145,7 @@ created_time | datetime |创建时间
 updated_time | datetime |更新时间
 
 ### event 活动表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 guide_image | bigint|引导图片
@@ -176,7 +176,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 ### event_category 活动描述表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 descr | varchar|描述
@@ -188,7 +188,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 ### event_checkin_qrcode 
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 event_id | bigint|
@@ -198,7 +198,7 @@ deleted |tinyint| 删除标记
 
 
 ### event_order 活动排名表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 member_id |bigint |会员id
@@ -227,7 +227,7 @@ deleted |tinyint| 删除标记
 
 
 ### event_session 活动场次表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 member_id |bigint |会员id
@@ -246,7 +246,7 @@ deleted |tinyint| 删除标记
 
 
 ### family_members 家庭成员表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 member_id |bigint |会员id
@@ -264,7 +264,7 @@ created_time | datetime |创建时间
 deleted |tinyint| 删除标记
 
 ### feeder_school 直属学校表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 third_id |bigint |
@@ -280,7 +280,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 ### fission_poster 裂变海报表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |
 title |varchar|标题
@@ -294,7 +294,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 ### flyway_schema_history 表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 installed_rank |bigint |
 version |varchar|
@@ -309,7 +309,7 @@ success|tinyint|
 
 
 ### form 表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |主键
 fields |varchar|字段
@@ -318,7 +318,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 ### form_data 表单数据
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |主键
 type|varchar|字段类型，文本：text、单选：radio、图片：image
@@ -330,7 +330,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 ### form_data 表单数据
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |主键
 type|varchar|字段类型，文本：text、单选：radio、图片：image
@@ -342,7 +342,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 ### goods 商品表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |主键
 name|varchar|名称
@@ -369,7 +369,7 @@ deleted |tinyint| 删除标记
 
 
 ### goods_code 商品状态码表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |主键
 goods_ids|bigint|
@@ -380,7 +380,7 @@ deleted |tinyint| 删除标记
 
 
 ### goods_order 商品序列表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |主键
 member_name|varchar|成员名称
@@ -402,7 +402,7 @@ updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
 ### group_buy_event 拼课团表
-字段名 |类型 | 注释
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |主键
 event_category_second_id|varchar|名称
@@ -439,35 +439,347 @@ created_time | datetime |创建时间
 updated_time | datetime |更新时间
 deleted |tinyint| 删除标记
 
-### group_buy_event_order 拼课团表
-字段名 |类型 | 注释
+### group_buy_event_order 拼课团订单表
+字段名 |类型 | 备注
 :--- | :---| :---
 id |bigint |主键
 group_buy_event_id|bigint|团购活动id
 group_buy_event_name|varchar|拼客团名称
 group_buy_event_team_id|bigint|团id
 member_id|bigint|会员id
-size|int|
-member_head_url|varchar|
-time_expire|datetime|
-member_name|varchar|
-channel|varchar|
-form_data_ids
-checkin_store_org_id
-charge_toggle|tinyint|收费开关
+size|int|团队数量
+member_head_url|varchar|会员头像地址
+time_expire|datetime|过期时间
+member_name|varchar|会员名称
+channel|varchar|来源渠道
+form_data_ids|varchar|表单数据id集合
+checkin_store_org_id|bigint(20)|核销店铺id
+status|varchar|状态
+pament_status|varchar|支付状态
+code|varchar|核销码
+member_mobile|varchar|会员手机号
+payment_order_id|bigint|支付订单id
+refund_order_id|bigint|退款订单id
+sku_values|varchar|规格值 简易
+sku_values_detail|varchar|规格值详情
+charged_amount|int|金额
+robot|tinyint|是不是机器人订单
+team_leader|tinyint|是不是团长订单
+created_time|datetime|创建时间
+updated_time|datetime|更新时间
 
-type|varchar|字段类型，文本：text、单选：radio、图片：image
-effective_day|int|有效天数
-
-source_type|varchar|来源
-use_type|varchar|核销状态
 
 
+### group_buy_event_robot 拼课团机器人表
+
+### group_buy_event_robot_record 拼课团机器人记录表
 
 
-point|int|积分
+### group_buy_event_rule 拼课团规则表
 
-organization_id|bigint|归属组织
+
+### group_buy_event_specification_conf 拼课团  表
+
+### group_buy_event_specification_detail 拼课团  表
+
+### group_buy_event_specification_detail_parent 拼课团  表
+
+
+### group_buy_event_team 拼课团团队表
+
+### level_descr 等级描述表
+
+### level_privilege 等级  表
+
+
+### mall_category  表
+
+### mall_goods  表
+
+### mall_goods_category  表
+
+### mall_goods_category_level  表
+
+### mall_goods_collection  表
+
+### mall_goods_sku  表
+
+### mall_goods_sku_relation  表
+
+### mall_goods_ticket  表
+
+### mall_group_buy_event  表
+
+### mall_item_attr_key   表
+
+### mall_item_attr_val   表
+
+### mall_item_sku   表
+
+### mall_order   表
+
+### mall_order_goods   表
+
+### mall_order_log   表
+
+### mall_order_member_ticket   表
+
+### mall_order_operation_record   表
+
+### mall_template   表
+
+### mall_template_attr   表
+
+### mall_ticket_coupon   表
+
+### mall_ticket_coupon_code   表
+
+### mall_ticket_discount_coupon   表
+
+### marketing_tool_third_order_map   表
+
+### marketing_training_class_map   表
+
+### member 会员信息表 
+| 字段名                         | 类型             | 备注                  |
+|-----------------------------|----------------|---------------------|
+| id                          | bigint\(20\)   |                     |
+| organization\_id            | bigint\(20\)   | 组织id                |
+| name                        | varchar\(45\)  | 姓名                  |
+| save\_info\_time            | datetime       | 流资时间                |
+| last\_login\_time           | datetime       | 最后登录时间              |
+| student                     | tinyint\(1\)   | 是否是学生               |
+| channel                     | varchar\(255\) | 渠道                  |
+| sex                         | varchar\(45\)  | 性别                  |
+| birthday                    | varchar\(50\)  | 生日                  |
+| mobile                      | varchar\(45\)  | 手机号                 |
+| email                       | varchar\(45\)  | 邮箱                  |
+| points                      | int\(11\)      | 积分                  |
+| nick\_name                  | varchar\(255\) | 昵称                  |
+| sign\_days                  | int\(11\)      | 当前签到天数              |
+| sign\_total\_days           | int\(11\)      | 总共签到天数              |
+| sign\_max\_days             | int\(11\)      | 最长签到天数              |
+| share\_count                | int\(11\)      | 分享次数                |
+| child\_member\_save\_count  | int\(11\)      | 带来用户留资数             |
+| child\_member\_uv\_count    | int\(11\)      | 带来新用户数              |
+| child\_member\_total\_count | int\(11\)      | 带来用户数               |
+| open\_count                 | int\(11\)      | 打开次数                |
+| growth                      | int\(11\)      | 增长率                 |
+| zy\_member\_info            | varchar\(255\) | 卓越会员ID              |
+| worker                      | tinyint\(1\)   | 员工标识0非员工 1员工        |
+| source                      | varchar\(255\) | SELF 自身 THIRD 其他第三方 |
+| level                       | int\(11\)      | 级别                  |
+| deleted                     | tinyint\(1\)   | 删除标记                |
+| created\_time               | datetime       | 创建时间                |
+| updated\_time               | datetime       | 更新时间                |
+
+
+### member_benefits 会员  表
+
+### member_child_info 推荐人和下线的关系表
+| 字段名                              | 类型              | 备注                          |
+|----------------------------------|-----------------|-----------------------------|
+| id                               | bigint\(20\)    |                             |
+| child\_member\_id                | bigint\(20\)    | 下线ID                        |
+| member\_id                       | bigint\(20\)    | 推荐人ID                       |
+| resource\_id                     | varchar\(255\)  | 资源ID                        |
+| root\_member\_id                 | bigint\(20\)    | 根推荐人ID                      |
+| from\_member\_ids                | varchar\(1000\) | 推荐人链路 在前面添加 A\->B,A\->C,B,A |
+| child\_member\_share\_count      | int\(11\)       | 下线分享次数                      |
+| child\_member\_open\_count       | int\(11\)       | 下线打开次数                      |
+| child\_member\_count             | int\(11\)       | 带来下线数                       |
+| child\_member\_save\_info\_count | int\(11\)       | 留资人数                        |
+| created\_time                    | datetime        | 创建时间                        |
+| updated\_time                    | datetime        | 更新时间                        |
+
+
+### member_class_buy_info 会员  表
+
+### member_event_record 会员下线表
+
+### member_growth_log 会员下线表
+
+### member_level 会员下线表
+
+### member_if_record    表
+
+### member_log 会员  表
+
+### member_organization 会员  表
+
+
+### member_organization_map 会员  表
+
+### member_point_record 会员  表
+
+### member_resource_info
+
+### member_static_tag_group_map 会员  表
+
+
+### member_task 会员任务表
+
+
+### member_third_info 会员  表
+
+### notice 表
+
+### organization 表
+
+### organization_config 表
+
+### organization_wx_app 表
+
+### pay_notify_log 表
+
+### payment_order 表
+
+### poster 表
+
+### promotion_info_report 表
+
+### refund_order 表
+
+### resource_channel 表
+
+### resource_conf 表
+
+### resource_member_order_info 表
+
+### resource_organization_map 表
+
+### resource_share_info 表
+
+### resource_static_tag_group_map 表
+
+### resource_share_info 表
+
+### resource_static_tag_group_map 表
+
+### resource_use_info 表
+
+### share_tracking 表
+| 字段名               | 类型              | 备注                   |
+|-------------------|-----------------|----------------------|
+| id                | bigint\(20\)    |                      |
+| organization\_id  | bigint\(20\)    | 组织id                 |
+| member\_id        | bigint\(20\)    | 会员ID                 |
+| resource\_type    | varchar\(255\)  | 资源类型                 |
+| resource\_id      | varchar\(255\)  | 资源id                 |
+| type              | varchar\(255\)  | 传播类型：SHARE分享、触达REACH |
+| store\_org\_id    | bigint\(20\)    | 门店组织ID               |
+| channel           | varchar\(255\)  | 渠道                   |
+| from\_member\_ids | varchar\(255\)  | 分享的会员ID集合            |
+| depth             | int\(11\)       | 深度                   |
+| browse\_time      | datetime        | 首次浏览时间               |
+| from\_ids         | varchar\(5000\) | 父节点集合                |
+| from\_id          | bigint\(20\)    | 上一个资源链接              |
+| root\_id          | bigint\(20\)    | 这个链路开始id             |
+| qrcode\_url       | varchar\(255\)  | 拼接的图片的url            |
+| created\_time     | datetime        | 创建时间                 |
+| updated\_time     | datetime        | 更新时间                 |
+
+
+### static_tag_group 表
+
+### store 表
+
+### superuser_plan 表
+
+### superuser_plan_stage 表
+
+### superuser_plan_stage_ranking 表
+
+### superuser_point_record 表
+
+
+### task 表
+
+### task_center 表
+
+### taskcenter_in_event 表
+
+### tenant 表
+
+### tenant_organization_map 表
+
+### timed_task_info 表
+
+### training_class 表
+
+### worker 表
+| 字段名            | 类型             | 备注    |
+|----------------|----------------|-------|
+| id             | bigint\(20\)   |       |
+| name           | varchar\(255\) | 姓名    |
+| member\_id     | bigint\(20\)   | 会员id  |
+| department     | varchar\(255\) | 部门    |
+| position       | varchar\(255\) | 职位    |
+| wechat\_qrcode | varchar\(255\) | 微信二维码 |
+| head\_image    | varchar\(255\) | 头像    |
+| wechat\_num    | varchar\(255\) | 微信号   |
+| mobile         | varchar\(255\) | 手机号   |
+| worker\_no     | varchar\(255\) | 工号    |
+| on\_work       | tinyint\(1\)   | 是否在职  |
+| created\_time  | datetime       | 创建时间  |
+| deleted        | tinyint\(1\)   | 删除标记  |
+| updated\_time  | datetime       | 更新时间  |
+
+
+
+### wx_miniapp_account 表
+
+
+### wx_miniapp_formid_record 表
+
+### wx_mp_account 表
+
+### wx_pay_config 表
+
+
+
+
+
+
+
+
+
+
+
+
+### event_order 活动订单表
+|                           字段名 | 类型              | 备注     |
+|-------------------------------|-----------------|--------|
+| id                            | bigint\(20\)    |        |
+| guide\_image                  | varchar\(255\)  | 引导图片   |
+| event\_category\_second\_id   | bigint\(20\)    | 活动二级分类 |
+| event\_category\_first\_id    | bigint\(20\)    | 活动一级分类 |
+| organization\_id              | bigint\(20\)    | 归属组织   |
+| resource\_id                  | varchar\(30\)   | 资源ID   |
+| end\_time                     | datetime        | 结束时间   |
+| begin\_time                   | datetime        | 开始时间   |
+| order\_no                     | int\(10\)       | 订单排序   |
+| name                          | varchar\(100\)  | 活动名称   |
+| brief                         | varchar\(100\)  | 活动简介   |
+| recommend                     | tinyint\(1\)    | 置顶     |
+| banner                        | varchar\(200\)  | 头图     |
+| sms\_template\_id             | varchar\(200\)  | 模板消息id |
+| coupon\_batch                 | varchar\(1000\) | 优惠券批次  |
+| cover\_image                  | varchar\(200\)  | 封面图    |
+| detail                        | mediumtext      | 活动详情   |
+| published                     | tinyint\(1\)    | 是否发布   |
+| form\_id                      | bigint\(20\)    | 表单iD   |
+| charged\_amount               | int\(11\)       | 收费金额   |
+| reservation\_review\_toggle   | tinyint\(1\)    | 预约审核开关 |
+| cancel\_review\_toggle        | tinyint\(1\)    | 取消审核开关 |
+| charge\_toggle                | tinyint\(1\)    | 收费开关   |
+| checkin\_qrcode\_toggle       | tinyint\(1\)    | 核销码开关  |
+| created\_time                 | datetime        | 创建时间   |
+| updated\_time                 | datetime        | 更新时间   |
+| deleted                       | tinyint\(1\)    | 是否删除   |
+
+
+
 
 
 test_group_buy_event.py | 营销中台拼课团的增删改查代码|
