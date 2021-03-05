@@ -2,6 +2,7 @@ import json
 import random
 import re
 import requests
+import yaml
 
 from base_api import BaseApi
 
@@ -14,13 +15,26 @@ class Pingketuan(BaseApi):
         super().__init__()
 
     def add(self, type):
-        # 创建活动，类型可为拼课团、优惠活动
+        """
+        创建活动，类型可为：
+        - pt  拼课团
+        - hd  优惠活动
+        - wz  文章
+        - rw  任务
+        :param type:
+        :return:
+        """
         data = {
             "method": "get",
             "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/common/get_new_resource_id",
             "params": {"type": type},
             "headers": {'X-Token': self.token}
         }
+        # self.params["type"]=type
+        # with open("./pingketuan.yaml",encoding="utf-8")as f:
+        #     data=yaml.load(f)
+        # print(data)
+        # return self.send(data["add"])
         return self.send(data)
         # resource_id = r.json()['data']
         # return resource_id
@@ -368,38 +382,6 @@ class Pingketuan(BaseApi):
 
         return self.send(data)
 
-    # def __init__(self):
-    #     super().__init__()
-    """
-    登录获取token思路，定义一个类，添加方法
-    返回方法的值，定义一个类的局部变量
-    局部变量的值，先为空，然后通过返回赋值取到
-    token =None
-    
-    def __init__(self):
-        token=get.token()
-        
-    新增拼课团之后，通过拼课团的resource_id进行编辑更新拼课团
-    更新后，查询拼课团，通过断言判断更新是否成功
-    断言方式：
-    - for in 判断
-    - jsonpath 判断 jmepath
-    - assert 判断
-    def add(self):
-        pass
-    def update(self):
-        pass
-    def list(self):
-        tags=
-        [tag for group in r.json()['tag_group']
-            if group['groupname']=='python15'
-            for tag in group['tag']
-            if tag['name']==tag_name  ]
-        assert tags!=[]    
-    
-    def del(self):
-        pass 
-    """
 
 #     def add(self, userid, name, mobile, department, **kwargs):
 #         data = {

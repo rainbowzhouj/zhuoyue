@@ -13,10 +13,9 @@ class TestPingketuan:
     @pytest.mark.parametrize("type", [['pt'], ['test']])
     def test_add_pkt(self, type):
         r = self.pkt.add(type=type)
-        print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
+        # print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
         assert r.status_code == 200
         assert r.json()["code"] == "0"
-
 
     # todo：测试数据放到数据文件中
     @pytest.mark.parametrize("group_buy_event_id,resourceId,titile", [
@@ -194,6 +193,8 @@ class TestPingketuan:
         r = self.pkt.status_group_buy_event(group_buy_event_id=group_buy_event_id, status=status)
         assert r.json()["code"] == "0"
         assert r.status_code == 200
+
+
 
 
 # ['813791300195639296','pt_813791300145307648', '取消订单测试3'],

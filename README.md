@@ -6,6 +6,38 @@ test_event.py | 营销中台活动的增删改查代码
 test_pkt.py | 初始拼课团代码
 
 
+## 状态说明
+### 支付状态说明
+
+- 无需支付 NONE
+- 待支付 UNPAID
+- 支付处理中 PAY_PROCESSING
+- 支付成功 PAY_SUCCESS
+- 支付失败 PAY_FAILED
+- 退款中 REFUNDING
+- 已退款 REFUNDED
+- 退款失败 REFUND_FAILED
+
+
+### 拼课团状态说明
+
+- 未开启 NOTOPEN
+- 开启 OPEN
+- 已结束 CLOSED
+
+
+### 拼课团订单状态说明
+
+- 待支付 UNPAID
+- 支付处理中 PAY_PROCESSING
+- 已取消 CANCELED
+- 待核销 UNUSED
+- 已核销 USED
+- 取消待审核 CANCEL_REVIEW_PENDING
+- 已超时 TIME_OUT
+- 已失败 TEAM_FAIL
+
+
 ## 数据库表介绍
 ### article 物品，条款表
 

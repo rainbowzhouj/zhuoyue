@@ -6,6 +6,7 @@ import requests
 class BaseApi:
     def __init__(self):
         self.token = self.get_token()
+        # self.params["token"]=self.token
 
     def get_token(self):
         data = {
@@ -19,7 +20,12 @@ class BaseApi:
         token = r.json()['data']['token']
         return token
 
-    def send(self, kwargs):
-        r = requests.request(**kwargs)
+    def send(self,data):
+        # raw_data = json.dumps(data)
+        # for key,value in self.params.items():
+        #     raw_data= raw_data.replace("${"+key+"}",value)
+
+        # r = requests.request(**data).json()
+        r = requests.request(**data)
         print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
         return r
