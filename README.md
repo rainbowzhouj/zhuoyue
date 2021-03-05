@@ -26,16 +26,7 @@ test_pkt.py | 初始拼课团代码
 - 已结束 CLOSED
 
 
-### 拼课团订单状态说明
 
-- 待支付 UNPAID
-- 支付处理中 PAY_PROCESSING
-- 已取消 CANCELED
-- 待核销 UNUSED
-- 已核销 USED
-- 取消待审核 CANCEL_REVIEW_PENDING
-- 已超时 TIME_OUT
-- 已失败 TEAM_FAIL
 
 
 ## 数据库表介绍
