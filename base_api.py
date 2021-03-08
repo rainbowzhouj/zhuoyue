@@ -6,6 +6,7 @@ import requests
 class BaseApi:
     def __init__(self):
         self.token = self.get_token()
+        self.base_url="https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab"
         # self.params["token"]=self.token
 
     def get_token(self):
