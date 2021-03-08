@@ -25,10 +25,6 @@ test_pkt.py | 初始拼课团代码
 - 开启 OPEN
 - 已结束 CLOSED
 
-
-
-
-
 ## 数据库表介绍
 ### article 物品，条款表
 

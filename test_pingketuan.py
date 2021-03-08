@@ -1,15 +1,17 @@
 import datetime
 import json
+
+import allure
 import pytest
 from jsonpath import jsonpath
 
 from pingketuan import Pingketuan
 
-
+@allure.feature("拼课团功能")
 class TestPingketuan:
     def setup_class(self):
         self.pkt = Pingketuan()
-
+    @allure.story('添加拼课团')
     @pytest.mark.parametrize("type", [['pt'], ['test']])
     def test_add_pkt(self, type):
         r = self.pkt.add(type=type)
@@ -17,6 +19,7 @@ class TestPingketuan:
         assert r.status_code == 200
         assert r.json()["code"] == "0"
 
+    @allure.story('编辑拼课团')
     # todo：测试数据放到数据文件中
     @pytest.mark.parametrize("group_buy_event_id,resourceId,titile", [
         ['813830799369887744', 'pt_813830799357304832', 'zhouj1'],
@@ -42,6 +45,7 @@ class TestPingketuan:
         # print(a)
         # assert "".join(a) == titile
 
+    @allure.story("查询拼课团")
     def test_list_pkt(self):
         titile = "取消订单测试_副本"
         r = self.pkt.list_group_buy_event(titile)
@@ -50,14 +54,17 @@ class TestPingketuan:
         assert r.status_code == 200
         assert r.json()['data'] != []
 
+    @allure.story('删除拼课团')
     def test_delete_pkt(self):
         # group_buy_event_id="813837484247408640" 删除不存在的情况无报错
         self.pkt.delete_update_group_buy_event("813837484247408640")
 
+    @allure.story('为某一个拼课团关联课程班级')
     def test_add_group_buy_event_specification_detail(self):
         # 为某一个拼课团关联课程班级 拼课团名称：取消订单测试,未进行参数化，需进一步封装
         self.pkt.add_group_buy_event_specification_detail()
 
+    @allure.story('复制一个拼课团')
     def test_copy_group_buy_event(self):
         # 复制一个拼课团
         r = self.pkt.copy_group_buy_event("813791300195639296")
@@ -67,6 +74,7 @@ class TestPingketuan:
         print(new_id)
         return new_id
 
+    @allure.story('撤销和发布一个拼课团')
     @pytest.mark.parametrize("group_buy_event_id,enable", [["815170951962877952", False], ["815170951962877952", True]])
     def test_enable_group_buy_event(self, group_buy_event_id, enable):
         # 撤销和发布一个拼课团
@@ -76,6 +84,7 @@ class TestPingketuan:
         assert r.status_code == 200
         assert jsonpath(r.json(), f"$.data[2].enable") == [enable]
 
+    @allure.story('移除和置顶一个拼课团')
     @pytest.mark.parametrize("group_buy_event_id,recommend",
                              [["815170951962877952", False], ["815170951962877952", True]])
     def test_recommend_group_buy_event(self, group_buy_event_id, recommend):
@@ -86,6 +95,7 @@ class TestPingketuan:
         assert r.status_code == 200
         assert jsonpath(r.json(), f"$.data[1].recommend") == [recommend]
 
+    @allure.story('测试查看单个拼课团的参团列表')
     @pytest.mark.parametrize("group_buy_event_id",
                              [["815170951962877952"], ["813791300195639296"], ["813791300195639297"]])
     def test_find_team_group_buy_event(self, group_buy_event_id):
@@ -100,6 +110,7 @@ class TestPingketuan:
         """
         assert r.json()['data'] != []
 
+    @allure.story('查看单个拼课团的查看拼课团的参团成员')
     @pytest.mark.parametrize("group_buy_event_id",
                              [["815170951962877952"], ["813791300195639296"], ["813791300195639297"]])
     def test_find_teamnumber_group_buy_event(self, group_buy_event_id):
@@ -133,6 +144,7 @@ class TestPingketuan:
         r = self.pkt.excel_teamnumber_group_buy_event(group_buy_event_id=group_buy_event_id, status=status)
         assert r.status_code == 200
 
+    @allure.story('查看所有渠道')
     def test_channel_list_group_buy_event(self):
         # 查看所有渠道
         r = self.pkt.channel_list_group_buy_event()
@@ -141,6 +153,7 @@ class TestPingketuan:
         # print(a)
         assert "".join(a) == "线上-微信"
 
+    @allure.story('查看所有校区')
     def test_store_list_group_buy_event(self):
         # 查看所有校区
         r = self.pkt.store_list_group_buy_event()
@@ -156,6 +169,7 @@ class TestPingketuan:
         r = self.pkt.url_list_excel_group_buy_event(group_buy_event_id1)
         assert r.status_code == 200
 
+    @allure.story('为单个拼课团添加门店及渠道')
     @pytest.mark.parametrize("group_buy_event_id,organizationId,channelIds",
                              [["813830799369887744", "768419663792685056", "593114936268292096"]])
     def test_add_launch_group_buy_event(self, group_buy_event_id, organizationId, channelIds):
@@ -178,6 +192,7 @@ class TestPingketuan:
         assert r.status_code == 200
         # print(r)
 
+    @allure.story('查看一个拼课团订单号详情')
     def test_orders_group_buy_event(self):
         # 订单号详情
         group_buy_event_id = "803210521562505216"
@@ -185,6 +200,7 @@ class TestPingketuan:
         assert r.status_code == 200
         assert r.json()["data"] != []
 
+    @allure.story('后台核销拼课团')
     @pytest.mark.parametrize("group_buy_event_id,status", [
         ["813791300195639296", "USED"],
         ["813791300195639296", "UNUSED"]])
