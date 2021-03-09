@@ -1,9 +1,3 @@
-import json
-import random
-import re
-import requests
-import yaml
-
 from base_api import BaseApi
 
 
@@ -21,12 +15,13 @@ class Pingketuan(BaseApi):
         - hd  优惠活动
         - wz  文章
         - rw  任务
+        # done 基础url封装
         :param type:
         :return:
         """
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/common/get_new_resource_id",
+            "url": f"{self.base_url}/common/get_new_resource_id",
             "params": {"type": type},
             "headers": {'X-Token': self.token}
         }
@@ -43,7 +38,7 @@ class Pingketuan(BaseApi):
         # 更新拼课团
         data = {
             "method": "put",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id,
+            "url": f"{self.base_url}/group_buy_event/" + group_buy_event_id,
             "headers": {
                 'X-Token': self.token,
                 'Content-Type': 'application/json;charset=UTF-8'
@@ -135,7 +130,7 @@ class Pingketuan(BaseApi):
         # 查询拼课团列表
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/list",
+            "url": f"{self.base_url}/group_buy_event/list",
             "headers": {'X-Token': self.token},
             "params": {
                 "page": 1,
@@ -152,7 +147,7 @@ class Pingketuan(BaseApi):
         # 删除一个拼课团
         data = {
             "method": "DELETE",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id,
+            "url": f"{self.base_url}/group_buy_event/" + group_buy_event_id,
             "headers": {'X-Token': self.token},
             "data": {}
         }
@@ -162,7 +157,7 @@ class Pingketuan(BaseApi):
         # 为某一个拼课团关联课程班级 拼课团名称：取消订单测试
         data = {
             "method": "PUT",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/813791300195639296/specification",
+            "url": f"{self.base_url}/group_buy_event/813791300195639296/specification",
             "headers": {
                 'X-Token': self.token,
                 'Content-Type': 'application/json;charset=UTF-8'
@@ -217,7 +212,7 @@ class Pingketuan(BaseApi):
     def copy_group_buy_event(self, group_buy_event_id):
         data = {
             "method": "PUT",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id + "/copy",
+            "url": f"{self.base_url}/group_buy_event/" + group_buy_event_id + "/copy",
             "headers": {'X-Token': self.token},
             "data": {}
         }
@@ -227,7 +222,7 @@ class Pingketuan(BaseApi):
         # 撤销和发布一个拼课团
         data = {
             "method": "PUT",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id + "/enable",
+            "url": f"{self.base_url}/group_buy_event/" + group_buy_event_id + "/enable",
             "headers": {'X-Token': self.token},
             "data": {"enable": enable}
         }
@@ -237,7 +232,7 @@ class Pingketuan(BaseApi):
         # 移除和置顶一个拼课团，recommend字段控制
         data = {
             "method": "PUT",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/" + group_buy_event_id + "/recommend",
+            "url": f"{self.base_url}/group_buy_event/" + group_buy_event_id + "/recommend",
             "headers": {'X-Token': self.token},
             "data": {"recommend": recommend}
         }
@@ -247,7 +242,7 @@ class Pingketuan(BaseApi):
         # 查看单个拼课团的参团列表
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/teams",
+            "url": f"{self.base_url}/group_buy_event_order/teams",
             "headers": {'X-Token': self.token},
             "params": {
                 "page": 1,
@@ -262,7 +257,7 @@ class Pingketuan(BaseApi):
         # 查看拼课团的参团成员
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/event_rule/numbers",
+            "url": f"{self.base_url}/group_buy_event_order/event_rule/numbers",
             "headers": {'X-Token': self.token},
             "params": {
                 "groupBuyEventId": group_buy_event_id
@@ -273,7 +268,7 @@ class Pingketuan(BaseApi):
     def excel_teamnumber_group_buy_event(self, group_buy_event_id, status):
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/excel_teams",
+            "url": f"{self.base_url}/group_buy_event_order/excel_teams",
             "headers": {'X-Token': self.token, 'Content-Type': 'text/plain;charset=UTF-8'},
             "params": {
                 "status": status,
@@ -285,7 +280,7 @@ class Pingketuan(BaseApi):
     def channel_list_group_buy_event(self):
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/channel/list",
+            "url": f"{self.base_url}/channel/list",
             "headers": {'X-Token': self.token, 'Content-Type': 'application/json;charset=UTF-8'},
             "params": {
                 "page": 1,
@@ -296,7 +291,7 @@ class Pingketuan(BaseApi):
     def store_list_group_buy_event(self):
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/organizations/store_list",
+            "url": f"{self.base_url}/organizations/store_list",
             "headers": {'X-Token': self.token, 'Content-Type': 'application/json;charset=UTF-8'},
             "params": {
                 "page": 1,
@@ -307,7 +302,7 @@ class Pingketuan(BaseApi):
     def url_list_excel_group_buy_event(self, group_buy_event_id):
         data = {
             "method": "post",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/url_list_excel",
+            "url": f"{self.base_url}/group_buy_event/url_list_excel",
             "headers": {'X-Token': self.token, 'Content-Type': 'application/json;charset=UTF-8'},
             "json": {
                 "page": 1,
@@ -322,7 +317,7 @@ class Pingketuan(BaseApi):
     def add_launch_group_buy_event(self, channelIds, group_buy_event_id, organizationId):
         data = {
             "method": "post",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/launch",
+            "url": f"{self.base_url}/group_buy_event/launch",
             "headers": {'X-Token': self.token, 'Content-Type': 'application/json;charset=UTF-8'},
             "json": {
                 "page": 1,
@@ -350,7 +345,7 @@ class Pingketuan(BaseApi):
     def orders_group_buy_event(self, group_buy_event_id):
         data = {
             "method": "GET",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/orders",
+            "url": f"{self.base_url}/group_buy_event_order/orders",
             "headers": {'X-Token': self.token},
             "params": {
                 "page": 1,
@@ -368,7 +363,7 @@ class Pingketuan(BaseApi):
     def status_group_buy_event(self, group_buy_event_id, status):
         data = {
             "method": "GET",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event_order/search",
+            "url": f"{self.base_url}/group_buy_event_order/search",
             "headers": {'X-Token': self.token},
             "params": {
                 "page": 1,
@@ -382,20 +377,28 @@ class Pingketuan(BaseApi):
 
         return self.send(data)
 
+    """
+    取消订单前，判断该订单是否存在
+    - 如存在，则状态是否属于
+        - 待支付 UNPAID 
+        - 支付处理中 PAY_PROCESSING
+        - 预约待审核 RESERVATION_REVIEW_PENDING
+        - 待核销 UNUSED
+        - 取消待审核 CANCEL_REVIEW_PENDING
+    上述5种，属于其中一种的时候，订单可以取消
+    - 如不存在，则添加一个订单，将订单的id返回
+        - 再调用取消接口
+    """
 
-#     def add(self, userid, name, mobile, department, **kwargs):
-#         data = {
-#             "method": "post",
-#             "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/common/get_new_resource_id?type=pt",
-#             "params": {"access_token": self.token},
-#             "json": {"userid": userid,
-#                      "name": name,
-#                      "mobile": mobile,
-#                      "department": department,
-#                      **kwargs
-#                      }}
-#         return self.send(data)
-#
+    def canceled_orders_group_buy_event(self, group_buy_event_id):
+        data = {
+            "method": "PUT",
+            "url": f"{self.base_url}/group_buy_event_order/" + group_buy_event_id + "/canceled",
+            "headers": {'X-Token': self.token},
+            "params": {}
+        }
+        return self.send(data)
+
 #
 #     def add_and_delete(self, userid, name, mobile, department, **kwargs):
 #         r = self.add(userid, name, mobile, department, **kwargs)
@@ -435,17 +438,7 @@ class Pingketuan(BaseApi):
 #         # 当部门为空或者不存在时候
 #         elif errcode == 40066:
 #             print("不合法的部门列表")
-#
-#     def list(self, userid):
-#         data = {
-#             "method": "get",
-#             "url": 'https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/group_buy_event/list?page=1&limit=20&size=10&eventSearchVO={}',
-#             "params": {"X-Token": self.token, 'userid': userid},
-#             "json": {
-#             }
-#         }
-#         return self.send(data)
-#
+
 #     def update(self, userid, user_name):
 #         data = {
 #             "method": "post",

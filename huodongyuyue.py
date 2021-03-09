@@ -8,7 +8,7 @@ class Huodongyuyue(BaseApi):
     def add(self, type):
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/common/get_new_resource_id",
+            "url": f"{self.base_url}/common/get_new_resource_id",
             "params": {"type": type},
             "headers": {'X-Token': self.token}
         }
@@ -18,7 +18,7 @@ class Huodongyuyue(BaseApi):
         # 更新活动
         data = {
             "method": "put",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event/" + event_id,
+            "url": f"{self.base_url}/event/" + event_id,
             "headers": {
                 'X-Token': self.token,
                 'Content-Type': 'application/json;charset=UTF-8'
@@ -102,7 +102,7 @@ class Huodongyuyue(BaseApi):
         # 查询活动列表
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event/list",
+            "url": f"{self.base_url}/event/list",
             "headers": {'X-Token': self.token},
             "params": {
                 "page": 1,
@@ -118,7 +118,7 @@ class Huodongyuyue(BaseApi):
         # 删除一个活动
         data = {
             "method": "DELETE",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event/" + event_id,
+            "url": f"{self.base_url}/event/" + event_id,
             "headers": {'X-Token': self.token},
             "data": {}
         }
@@ -127,7 +127,7 @@ class Huodongyuyue(BaseApi):
     def copy_event(self, event_id):
         data = {
             "method": "PUT",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event/" + event_id + "/copy",
+            "url": f"{self.base_url}/event/" + event_id + "/copy",
             "headers": {'X-Token': self.token},
             "data": {}
         }
@@ -137,7 +137,7 @@ class Huodongyuyue(BaseApi):
         # 撤销和发布一个活动
         data = {
             "method": "PUT",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event/" + event_id + "/publish",
+            "url": f"{self.base_url}/event/" + event_id + "/publish",
             "headers": {'X-Token': self.token},
             "data": {"publish": publish}
         }
@@ -147,7 +147,7 @@ class Huodongyuyue(BaseApi):
         # 移除和置顶一个活动，recommend字段控制
         data = {
             "method": "PUT",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event/" + event_id + "/recommend",
+            "url": f"{self.base_url}/event/" + event_id + "/recommend",
             "headers": {'X-Token': self.token},
             "data": {"recommend": recommend}
         }
@@ -166,10 +166,9 @@ class Huodongyuyue(BaseApi):
         :param event_id:
         :return:
         """
-        # https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event_orders/get_order_list
         data = {
             "method": "post",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event_orders/get_order_list",
+            "url": f"{self.base_url}/event_orders/get_order_list",
             "headers": {'X-Token': self.token},
             "params": {
                 "page": 1,
@@ -186,7 +185,7 @@ class Huodongyuyue(BaseApi):
     def find_teamnumber_event(self, event_id, status):
         data = {
             "method": "get",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event_orders/search",
+            "url": f"{self.base_url}/event_orders/search",
             "headers": {'X-Token': self.token},
             "params": {
                 "page": 1,
@@ -204,7 +203,7 @@ class Huodongyuyue(BaseApi):
         # https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event_checkin_qrcode/list?page=1&size=20
         data = {
             "method": "post",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event_checkin_qrcode/list",
+            "url": f"{self.base_url}/event_checkin_qrcode/list",
             "headers": {'X-Token': self.token, 'Content-Type': 'application/json;charset=UTF-8'},
             "params": {
                 "page": 1,
@@ -223,7 +222,7 @@ class Huodongyuyue(BaseApi):
     def canceled_event(self, event_id):
         data = {
             "method": "PUT",
-            "url": "https://apex-test-zhuoyue-mini-admin.chinapex.com.cn/dab/event_orders/" + event_id + "/canceled",
+            "url": f"{self.base_url}/event_orders/" + event_id + "/canceled",
             "headers": {'X-Token': self.token},
             "data": {}
         }

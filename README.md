@@ -7,6 +7,15 @@ test_pkt.py | 初始拼课团代码
 
 
 ## 状态说明
+### 订单状态说明
+- 待支付 UNPAID 
+- 支付处理中 PAY_PROCESSING
+- 预约待审核 RESERVATION_REVIEW_PENDING
+- 已取消 CANCELED
+- 待核销 UNUSED
+- 已核销 USED
+- 取消待审核 CANCEL_REVIEW_PENDING
+
 ### 支付状态说明
 
 - 无需支付 NONE
