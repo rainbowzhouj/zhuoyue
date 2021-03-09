@@ -57,7 +57,7 @@ class TestPingketuan:
     @allure.story('删除拼课团')
     def test_delete_pkt(self):
         # group_buy_event_id="813837484247408640" 删除不存在的情况无报错
-        self.pkt.delete_update_group_buy_event("813837484247408640")
+        self.pkt.delete_update_group_buy_event("818476055966310400")
 
     @allure.story('为某一个拼课团关联课程班级')
     def test_add_group_buy_event_specification_detail(self):
@@ -195,7 +195,7 @@ class TestPingketuan:
     @allure.story('查看一个拼课团订单号详情')
     def test_orders_group_buy_event(self):
         # 订单号详情
-        group_buy_event_id = "803210521562505216"
+        group_buy_event_id = "818541842147893248"
         r = self.pkt.orders_group_buy_event(group_buy_event_id=group_buy_event_id)
         assert r.status_code == 200
         assert r.json()["data"] != []
@@ -210,7 +210,15 @@ class TestPingketuan:
         assert r.json()["code"] == "0"
         assert r.status_code == 200
 
-
+    @allure.story('取消某个活动的订单')
+    def test_canceled_orders_group_buy_event(self):
+        # 取消或退款一个订单，canceled字段控制
+        group_buy_event_id = "818795609996976128"
+        r = self.pkt.canceled_orders_group_buy_event(group_buy_event_id=group_buy_event_id)
+        r = self.pkt.orders_group_buy_event(group_buy_event_id=group_buy_event_id)
+        assert r.json()['code'] == '0'
+        assert r.status_code == 200
+        assert jsonpath(r.json(), f"$.data[0].status") == ["CANCELED"]
 
 
 # ['813791300195639296','pt_813791300145307648', '取消订单测试3'],
@@ -271,5 +279,140 @@ class TestPingketuan:
 #     r = self.user.delete_and_detect_user(["liumengqing"])
 #     print(json.dumps(r.json(), indent=2))
 #
-# def test_department(self):
-#     self.user.get_partyid()
+#
+# 报名人数与成功支付人数
+#
+# 前置条件：
+# 创建拼课团，用户参团，用户报名成功，订单待使用，自身的报名人数与支付笔数+1
+# 实例：
+# 数据表：group_buy_event
+# 拼课团titile：周晶-红冲推荐人测试
+# group_buy_event_id：818541842147893248
+# resource_id：'pt_818541842097561600'
+# SELECT * FROM `group_buy_event` where resource_id='pt_818541842097561600'
+#
+# 用户：
+# #数据表：member      三个用户，用户a文豪，用户b周晶，用户c邓鑫
+# """
+# 三个用户，用户a文豪，用户b周晶，用户c邓鑫
+# 文豪为员工
+# 周晶和邓鑫为会员
+# """
+# select * FROM member WHERE mobile='15317071350';
+# # 得出文豪的member_id 为   784358554458505216
+#
+# select * FROM member WHERE mobile='15001731170';
+# # 得出周晶的member_id 为   798991821192486912
+#
+# select * FROM member WHERE mobile='15123274197';
+# # 得出邓鑫的member_id 为   798994253104472064
+#
+#
+#
+# 三人的排行榜数据变化
+# # 文豪报名次数  报名后推荐人的带来人数+1，由615变为616
+# SELECT * FROM `resource_use_info` WHERE from_id='784358554458505216' AND type='CREATE_ORDER' and from_id != member_id;
+# # 文豪支付笔数 报名后推荐人的带来支付笔数+1，由1224  变为1225
+# SELECT * FROM `resource_use_info` WHERE from_id='784358554458505216' AND type='PAID_ORDER' and from_id != member_id;
+#
+# # 周晶报名次数  报名后推荐人的带来人数+1，由615变为616
+# SELECT * FROM `resource_use_info` WHERE from_id='798991821192486912' AND type='CREATE_ORDER' and from_id != member_id;
+# # 周晶支付笔数 报名后推荐人的带来支付笔数+1，由1224  变为1225
+# SELECT * FROM `resource_use_info` WHERE from_id='798991821192486912' AND type='PAID_ORDER' and from_id != member_id;
+#
+# # 邓鑫报名次数  报名后推荐人的带来人数+1，由615变为616
+# SELECT * FROM `resource_use_info` WHERE from_id='798994253104472064' AND type='CREATE_ORDER' ;
+# # 邓鑫支付笔数 报名后推荐人的带来支付笔数+1，由1224  变为1225
+# SELECT * FROM `resource_use_info` WHERE from_id='798994253104472064' AND type='PAID_ORDER' ;
+#
+#
+#
+#
+#
+#
+# 执行红冲过程与预期结果：
+# 方式1：
+# 用户主动取消订单，查看报名次数与支付笔数应各-1
+# 方式2：
+# 后台操作取消用户订单成功，查看报名次数与支付笔数应各-1
+# 方式3：
+# 用户报名后，但支付超时，查看报名次数应-1
+#
+# 实际结果：
+# 方式1，2红冲
+# 方式3，报名次数-1，但支付笔数未减
+#
+#
+#
+#
+# 带来报名人数
+# 用户提交信息成功后，该用户推荐人（上线）的报名人数+1
+# 因支付超时或用户主动取消订单成功后，该用户推荐人（上线）报名人数-1
+# 后台操作取消用户订单成功后，该用户推荐人（上线）报名人数-1
+# *若该用户的推荐人（上线）拥有推荐人，且身份是员工，则同样增减
+# 此处，强调员工的意义，举例说明：
+# 1.用户b分享给用户c，用户c进行了报名
+# 则此时：
+# 用户b（用户b为用户c的推荐人）的报名人数+1
+# 用户c的报名人数+1
+#
+# *若用户b拥有上线用户a，且上线用户a为员工，则用户a的报名人数+1
+# 若用户b拥有上线用户a，上线用户a为会员，则用户a的报名人数不变
+# 若用户b无上线用户，则不变
+#
+# 2.1用户c支付超时
+# 用户b（用户b为用户c的推荐人）的报名人数-1
+# 用户c的报名人数-1
+#
+# *若用户b拥有上线用户a，且上线用户a为员工，则用户a的报名人数-1
+# 若用户b拥有上线用户a，上线用户a为会员，则用户a的报名人数不变
+# 若用户b无上线用户，则不变
+# 2.2用户c取消订单
+# 用户b（用户b为用户c的推荐人）的报名人数-1
+# 用户c的报名人数-1
+#
+# *若用户b拥有上线用户a，且上线用户a为员工，则用户a的报名人数-1
+# 若用户b拥有上线用户a，上线用户a为会员，则用户a的报名人数不变
+# 若用户b无上线用户，则不变
+#
+# 3.后台操作取消用户订单成功
+# 用户b（用户b为用户c的推荐人）的报名人数-1
+# 用户c的报名人数-1
+#
+# *若用户b拥有上线用户a，且上线用户a为员工，则用户a的报名人数-1
+# 若用户b拥有上线用户a，上线用户a为会员，则用户a的报名人数不变
+# 若用户b无上线用户，则不变
+#
+#
+#
+# 带来成功支付人数
+# 用户提交订单并成功付款后，该用户推荐人（上线）带来的成功支付人数+1
+# 用户主动取消订单成功后，该用户推荐人（上线）带来的成功支付人数-1
+# 后台操作取消用户订单成功后，该用户推荐人（上线）带来的报名人数-1
+# *若该用户的推荐人（上线）拥有推荐人，且身份是员工，则同样增减
+#
+# 举例说明
+# 1.用户b分享给用户c，用户c进行了成功支付
+# 则此时：
+# 用户b（用户b为用户c的推荐人）的成功支付人数+1
+# 用户c的成功支付人数+1
+#
+# *若用户b拥有上线用户a，且上线用户a为员工，则用户a的成功支付人数+1
+# 若用户b拥有上线用户a，上线用户a为会员，则用户a的成功支付人数不变
+# 若用户b无上线用户，则不变
+#
+# 2.用户c取消订单
+# 用户b（用户b为用户c的推荐人）的成功支付人数-1
+# 用户c的成功支付人数-1
+#
+# *若用户b拥有上线用户a，且上线用户a为员工，则用户a的成功支付人数-1
+# 若用户b拥有上线用户a，上线用户a为会员，则用户a的成功支付人数不变
+# 若用户b无上线用户，则不变
+#
+# 3.后台操作取消用户订单成功
+# 用户b（用户b为用户c的推荐人）的成功支付人数-1
+# 用户c的成功支付人数-1
+#
+# *若用户b拥有上线用户a，且上线用户a为员工，则用户a的成功支付人数-1
+# 若用户b拥有上线用户a，上线用户a为会员，则用户a的成功支付人数不变
+# 若用户b无上线用户，则不变
