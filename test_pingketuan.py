@@ -195,10 +195,11 @@ class TestPingketuan:
     @allure.story('查看一个拼课团订单号详情')
     def test_orders_group_buy_event(self):
         # 订单号详情
-        group_buy_event_id = "818541842147893248"
+        group_buy_event_id = "818795609996976128"
         r = self.pkt.orders_group_buy_event(group_buy_event_id=group_buy_event_id)
         assert r.status_code == 200
-        assert r.json()["data"] != []
+        #assert r.json()["data"] != []
+        assert r.json()["data"][0]["status"] == "UNUSED"
 
     @allure.story('后台核销拼课团')
     @pytest.mark.parametrize("group_buy_event_id,status", [
@@ -214,7 +215,9 @@ class TestPingketuan:
     def test_canceled_orders_group_buy_event(self):
         # 取消或退款一个订单，canceled字段控制
         group_buy_event_id = "818795609996976128"
-        r = self.pkt.canceled_orders_group_buy_event(group_buy_event_id=group_buy_event_id)
+        r = self.pkt.orders_group_buy_event(group_buy_event_id=group_buy_event_id)
+        orderId = r.json()["data"][0]["id"]
+        r = self.pkt.canceled_orders_group_buy_event(orderId=orderId)
         r = self.pkt.orders_group_buy_event(group_buy_event_id=group_buy_event_id)
         assert r.json()['code'] == '0'
         assert r.status_code == 200

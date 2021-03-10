@@ -390,10 +390,10 @@ class Pingketuan(BaseApi):
         - 再调用取消接口
     """
 
-    def canceled_orders_group_buy_event(self, group_buy_event_id):
+    def canceled_orders_group_buy_event(self, orderId):
         data = {
             "method": "PUT",
-            "url": f"{self.base_url}/group_buy_event_order/" + group_buy_event_id + "/canceled",
+            "url": f"{self.base_url}/group_buy_event_order/" + orderId + "/canceled",
             "headers": {'X-Token': self.token},
             "params": {}
         }
