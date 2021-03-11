@@ -3,9 +3,21 @@ import json
 
 import allure
 import pytest
+import yaml
 from jsonpath import jsonpath
 
 from pingketuan import Pingketuan
+
+
+def get_datas():
+    with open("./datas/pkt.yml",  encoding='utf-8') as f:
+        pkt = yaml.safe_load(f)
+    add_pkt = pkt['add']['datas']
+    ids_pkt = pkt['add']['ids']
+    print(add_pkt)
+    print(ids_pkt)
+    return [add_pkt, ids_pkt]
+
 
 @allure.feature("拼课团功能")
 class TestPingketuan:
@@ -15,21 +27,17 @@ class TestPingketuan:
     @pytest.mark.parametrize("type", [['pt'], ['test']])
     def test_add_pkt(self, type):
         r = self.pkt.add(type=type)
-        # print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
         assert r.status_code == 200
         assert r.json()["code"] == "0"
 
+
     @allure.story('编辑拼课团')
     # todo：测试数据放到数据文件中
-    @pytest.mark.parametrize("group_buy_event_id,resourceId,titile", [
-        ['813830799369887744', 'pt_813830799357304832', 'zhouj1'],
-        ['813830799369887744', 'pt_813830799357304832', 'zhouj2'],
-    ])
+    @pytest.mark.parametrize("group_buy_event_id,resourceId,titile", get_datas()[0],ids=get_datas()[1])
     def test_update_pkt(self, group_buy_event_id, resourceId, titile):
         titile = titile + str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
         r = self.pkt.update_group_buy_event(group_buy_event_id=group_buy_event_id, resourceId=resourceId, titile=titile)
         r = self.pkt.list_group_buy_event(titile)
-        print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
         assert r.json()['code'] == '0'
         assert r.status_code == 200
         assert r.json()['data'] != []
@@ -39,11 +47,11 @@ class TestPingketuan:
         2.将左右两边的类型都改为string
         """
         # 方式1
-        assert jsonpath(r.json(), f"$.data[1].titile") == [titile]
-        # 方式2 assert jsonpath(r,"$..topics[?(@.user.login=='VipMagic')].node_name")[0]=='性能常识'
-        # a = jsonpath(r.json(), f"$.data[0].titile")
-        # print(a)
-        # assert "".join(a) == titile
+        #assert jsonpath(r.json(), f"$.data[0].titile") == [titile]
+        # 方式2
+        a = jsonpath(r.json(), f"$.data[0].titile")
+        print(a)
+        assert "".join(a) == titile
 
     @allure.story("查询拼课团")
     def test_list_pkt(self):
