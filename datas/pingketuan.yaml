@@ -1,0 +1,7 @@
+add:
+  "method": "get"
+  "url": "${base_url}/common/get_new_resource_id"
+  "params":
+    "type": "pt"
+  "headers":
+    "X-Token": ${token}

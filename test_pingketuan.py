@@ -23,16 +23,33 @@ def get_datas():
 class TestPingketuan:
     def setup_class(self):
         self.pkt = Pingketuan()
-    @allure.story('添加拼课团')
-    @pytest.mark.parametrize("type", [['pt'], ['test']])
-    def test_add_pkt(self, type):
+    @allure.story('添加拼课团资源')
+    # @pytest.mark.parametrize("type", [['pt']])
+    def test_add_pkt(self):
         r = self.pkt.add(type=type)
         assert r.status_code == 200
-        assert r.json()["code"] == "0"
+        #assert r.json()["code"] == "0"
+
+    @allure.story('清理之前自动化创建的拼课团副本')
+    def test_del_tmp_pkts(self):
+        for pkt in self.pkt.list_group_buy_event(titile=None).json()['data']:
+            if '副本' in pkt['titile']:
+                self.pkt.delete_update_group_buy_event(pkt['id'])
+
+
+    @allure.story('添加拼课团')
+    def test_add_group_buy_event(self):
+        r= self.pkt.add("pt")
+        resourceId=r.json()['data']
+        titile='副本'+ str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+        r=self.pkt.add_group_buy_event(resourceId=resourceId,titile=titile)
+        # group_buy_event_id = r.json()['data']
+        # return group_buy_event_id
+        r=self.pkt.list_group_buy_event(titile=titile)
 
 
     @allure.story('编辑拼课团')
-    # todo：测试数据放到数据文件中
+    # done：测试数据放到数据文件中
     @pytest.mark.parametrize("group_buy_event_id,resourceId,titile", get_datas()[0],ids=get_datas()[1])
     def test_update_pkt(self, group_buy_event_id, resourceId, titile):
         titile = titile + str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
@@ -55,12 +72,10 @@ class TestPingketuan:
 
     @allure.story("查询拼课团")
     def test_list_pkt(self):
-        titile = "取消订单测试_副本"
+        titile = "取消订单测试"
         r = self.pkt.list_group_buy_event(titile)
-        print(json.dumps(r.json(), indent=2).encode("utf-8").decode("unicode-escape"))
         assert r.json()['code'] == '0'
         assert r.status_code == 200
-        assert r.json()['data'] != []
 
     @allure.story('删除拼课团')
     def test_delete_pkt(self):
@@ -75,12 +90,11 @@ class TestPingketuan:
     @allure.story('复制一个拼课团')
     def test_copy_group_buy_event(self):
         # 复制一个拼课团
-        r = self.pkt.copy_group_buy_event("813791300195639296")
+        r = self.pkt.copy_group_buy_event("818541842147893248")
         assert r.json()['code'] == '0'
         assert r.status_code == 200
-        new_id = r.json()['data']
-        print(new_id)
-        return new_id
+        group_buy_event_id = r.json()['data']
+        return group_buy_event_id
 
     @allure.story('撤销和发布一个拼课团')
     @pytest.mark.parametrize("group_buy_event_id,enable", [["815170951962877952", False], ["815170951962877952", True]])
@@ -222,7 +236,7 @@ class TestPingketuan:
     @allure.story('取消某个活动的订单')
     def test_canceled_orders_group_buy_event(self):
         # 取消或退款一个订单，canceled字段控制
-        group_buy_event_id = "818795609996976128"
+        group_buy_event_id = "819612750738546688"
         r = self.pkt.orders_group_buy_event(group_buy_event_id=group_buy_event_id)
         orderId = r.json()["data"][0]["id"]
         r = self.pkt.canceled_orders_group_buy_event(orderId=orderId)
@@ -231,6 +245,10 @@ class TestPingketuan:
         assert r.status_code == 200
         assert jsonpath(r.json(), f"$.data[0].status") == ["CANCELED"]
 
+
+
+    def test_add_order(self):
+        r=self.pkt.list_group_buy_event(titile=None)
 
 # ['813791300195639296','pt_813791300145307648', '取消订单测试3'],
 # ['zhouj3——中文20210226-150607'] == ['zhouj120210226-152702']

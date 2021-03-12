@@ -1,5 +1,6 @@
-from base_api import BaseApi
+import yaml
 
+from base_api import BaseApi
 
 # done 封装代码，去除冗余代码
 class Pingketuan(BaseApi):
@@ -7,6 +8,7 @@ class Pingketuan(BaseApi):
     # 先获取token
     def __init__(self):
         super().__init__()
+
 
     def add(self, type):
         """
@@ -19,20 +21,84 @@ class Pingketuan(BaseApi):
         :param type:
         :return:
         """
-        data = {
-            "method": "get",
-            "url": f"{self.base_url}/common/get_new_resource_id",
-            "params": {"type": type},
-            "headers": {'X-Token': self.token}
-        }
-        # self.params["type"]=type
-        # with open("./pingketuan.yaml",encoding="utf-8")as f:
-        #     data=yaml.load(f)
-        # print(data)
-        # return self.send(data["add"])
-        return self.send(data)
+        # data = {
+        #     "method": "get",
+        #     "url": f"{self.base_url}/common/get_new_resource_id",
+        #     "params": {"type": type},
+        #     "headers": {'X-Token': self.token}
+        # }
+        #self.params["type"]=type
+        with open("./datas/pingketuan.yaml",encoding="utf-8")as f:
+            data=yaml.load(f)
+        print(data["add"])
+        return self.send(data["add"])
+        #return self.send(data)
         # resource_id = r.json()['data']
         # return resource_id
+
+    def add_group_buy_event(self, resourceId, titile):
+        data = {
+            "method": "post",
+            "url": f"{self.base_url}/group_buy_event/",
+            "headers": {
+                'X-Token': self.token,
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            "json": {
+                "checkinQrcodeToggle": False,
+                "banner": "",
+                "beginTime": 1615737600000,
+                "endTime": 1617120000000,
+                "cancelReviewToggle": True,
+                "coverImage": "",
+                "guideImage": "",
+                "remindHours": 1,
+                "descr": "1",
+                "detail": "",
+                "effectiveHours": 4,
+                "effectiveType": "RELATIVE_DATE",
+                "customerServerShowVO": {
+                    "iconName": "",
+                    "image": "",
+                    "title": ""
+                },
+                "customerServerGuideOpened": False,
+                "form": "[]",
+                "groupBuyEventTeamRules": [
+                    {
+                        "leaderPrice": 0,
+                        "maxNumber": 10,
+                        "memberPrice": 0,
+                        "size": 2,
+                        "begintNumber": 0
+                    }
+                ],
+                "resourceId": resourceId,
+                "robotRules": [
+
+                ],
+                "storeOrgIds": [
+                    "768419663792685056"
+                ],
+                "tags": [
+
+                ],
+                "repeatJoin": False,
+                "teamLastTimeType": "LIMITLESS",
+                "teamLastTimeHours": 0,
+                "titile": titile,
+                "studentCanJoin": False,
+                "remindTimeType": "BEGIN",
+                "eventCategorySecondId": "",
+                "eventCategorySecondIdName": "",
+                "eventCategoryFirstId": "754008091141341184",
+                "eventCategoryFirstIdName": "测试",
+                "price": "null",
+                "effectiveBeginTime": 1615447845000,
+                "effectiveEndTime": 1615447845000
+            },
+        }
+        return self.send(data)
 
     def update_group_buy_event(self, group_buy_event_id, resourceId, titile):
         # 更新拼课团
@@ -134,8 +200,8 @@ class Pingketuan(BaseApi):
             "headers": {'X-Token': self.token},
             "params": {
                 "page": 1,
-                "limit": 20,
-                "size": 10,
+                "limit": "",
+                "size": 110,
                 "searchWord": titile,
                 "eventSearchVO": "%7B%7D"
             }
@@ -438,16 +504,6 @@ class Pingketuan(BaseApi):
 #         # 当部门为空或者不存在时候
 #         elif errcode == 40066:
 #             print("不合法的部门列表")
-
-#     def update(self, userid, user_name):
-#         data = {
-#             "method": "post",
-#             "url": 'https://qyapi.weixin.qq.com/cgi-bin/user/update',
-#             "params": {"access_token": self.token},
-#             "json": {"userid": userid,
-#                      "name": user_name
-#                      }}
-#         return self.send(data)
 #
 #     def delete(self, userid):
 #         data = {
