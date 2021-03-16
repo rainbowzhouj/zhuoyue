@@ -1,4 +1,5 @@
 import allure
+import yaml
 
 from base_api import BaseApi
 
@@ -72,40 +73,19 @@ class Zhuoyue(BaseApi):
         return self.send(data)
 
     def add_teams(self,group_buy_event_id):
+        with open('./datas/team.yml',encoding='utf-8')as f:
+            team=yaml.safe_load(f)
         data = {
             "method": "post",
             "url": f"{self.Base_url}/group_buy_event/teams",
-            "json": {
-                "name": "zj",
-                "mobile": "15001731170",
-                "checkCode": "",
-                "childMemberId": "",
-                "groupBuyEventId": group_buy_event_id,
-                "groupBuyEventTeamId": "",
-                "size": 1,
-                "formDataList": [
-                    {
-                        "key": "收货地址",
-                        "type": "text",
-                        "value": "接口1",
-                        "options": [],
-                        "isRequire": True
-                    },
-                    {
-                        "key": "孩子年级",
-                        "type": "text",
-                        "value": "接口1",
-                        "options": [],
-                        "isRequire": True
-                    }
-                ],
-                "skuValues": "数学,数学"
-            },
+            "json": team,
             "headers": {'Content-Type': 'application/json;charset=UTF-8',
                         'X-Wx-Appid': 'wxa6c830ff8650cc37',
                         'accessToken': self.accesstoken,
                         }
         }
+
+
         return self.send(data)
 
 

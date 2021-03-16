@@ -35,7 +35,7 @@ class TestZhuoyue:
         assert r.status_code == 200
 
     @allure.feature('对pkt进行下单')
-    @pytest.mark.parametrize('group_buy_event_id', ['818795609996976128'])
+    @pytest.mark.parametrize('group_buy_event_id', ['819612750738546688'])
     def test_add_teams(self,group_buy_event_id):
         r=self.zy.add_teams(group_buy_event_id=group_buy_event_id)
         assert r.json()['code'] == '0'
@@ -48,6 +48,9 @@ class TestZhuoyue:
         assert r.json()['code'] == '0'
         assert r.json()["data"][0]["status"]=="UNUSED"
 
+    @allure.feature('转发活动')
+    def test_share(self):
+        r=self.zy.add_teams()
 
     """
     
